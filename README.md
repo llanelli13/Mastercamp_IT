@@ -1,7 +1,7 @@
 # Mastercamp_IT
 
 
-Participant : 
+Participants : 
 - Pierre REY
 - Noa CANTRELLE
 - Théo VILLANO
