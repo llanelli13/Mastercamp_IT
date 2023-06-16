@@ -341,7 +341,7 @@ router.get('/messages/:userId', authentification, async (req, res) => {
 // ----------------------- [ get banks ] ------------------------------
 
 
-router.get('/banks', authentification, async (req, res) => {
+router.get('/banks', async (req, res) => {
   try {    
     // Find messages between the authenticated user and the specified user
     const banks = await Bank.find();

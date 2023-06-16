@@ -1,21 +1,20 @@
 <template>
-  <div class="body " style="height:100vh;" id="app">
+  <div class="body" style="height:100vh; overflow-y : scroll;" id="app">
     <NavBar></NavBar>
     <router-view></router-view>
-    <FooterComp></FooterComp>
+
   </div>
   
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import FooterComp from "@/components/FooterComp.vue";
 
 export default {
   name: 'App',
   components: {
-    FooterComp,
-    NavBar
+
+    NavBar,
 
   },
   data () {
