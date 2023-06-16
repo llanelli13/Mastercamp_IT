@@ -1,10 +1,24 @@
-# Mastercamp_IT
+# card-game
 
+## Project setup
+```
+npm install
+```
 
-Participants : 
-- Pierre REY
-- Noa CANTRELLE
-- Théo VILLANO
-- Mohamed AALI ANDELLA
-- Tom SAUTRON
-- Timothée FOUGERON
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
