@@ -1,5 +1,5 @@
 require('dotenv').config();
-const routes = require('./routes/routes');
+const routes = require('../Backend/routes/routes');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser')
 
