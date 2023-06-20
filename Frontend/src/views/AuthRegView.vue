@@ -4,10 +4,6 @@
     <div class=" flex justify-center mx-auto">
       <img class="w-auto h-7 sm:h-8" src="../assets/Logo.png" alt="">
     </div>
-
-
-
-
     <div class="container items-center justify-center my-12 px-4 sm:px-20 lg:px-60 mx-auto">
       <!-- Buttons SignIn/SignUp -->
 
@@ -30,7 +26,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
           </span>
-            <input type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="First name">
+            <input v-model="firstName" type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="First name">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -39,7 +35,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
           </span>
-            <input type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Last name">
+            <input v-model="lastName" type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Last name">
           </div>
 
 
@@ -50,7 +46,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"></path>
             </svg>
           </span>
-            <input type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Phone number">
+            <input  v-model="phoneNumber" type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Phone number">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -59,7 +55,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
           </span>
-            <input type="email" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Email address">
+            <input v-model="email" type="email" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Email address">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -68,7 +64,7 @@
               <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
             </svg>
           </span>
-            <input  type="date" class="block  w-full placeholder-gray-400/70  rounded-lg border border-gray-200 bg-white pl-12  pr-4 py-3 text-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 " />
+            <input v-model="birthDate" type="date" class="block  w-full placeholder-gray-400/70  rounded-lg border border-gray-200 bg-white pl-12  pr-4 py-3 text-black focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 " />
           </div>
 
           <div class="relative flex items-center py-1">
@@ -77,7 +73,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
           </span>
-            <input type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Gender">
+            <input v-model="gender" type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Gender">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -86,7 +82,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
           </span>
-            <input type="password" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Password">
+            <input v-model="pwd" type="password" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Password">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -107,34 +103,24 @@
               </svg>
           </span>
             <select
+                v-model="bank"
                 name="HeadlineAct"
                 id="HeadlineAct"
                 class="block w-full rounded-lg py-3 px-10 border border-gray-300"
             >
-              <option value="Bank">Select Bank</option>
-              <option v-for="b in bankValue " v-bind:key="b" :value="b.name">{{ b.name }}</option>
-              >
+              <option value="">Select Bank</option>
+              <option v-for="b in bankValue " v-bind:key="b" :value="b">{{ b.name }}</option>
+
             </select>
           </div>
 
           <div class="col-span-2 mt-6">
             <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400">
-              Sign Up
+              Register
             </button>
           </div>
         </form>
         <form v-if="this.login" class="w-full">
-
-          <div class="relative flex items-center">
-                <span class="absolute">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-3 text-gray-500 " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                </span>
-
-            <input type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username">
-          </div>
-
 
           <div class="relative flex items-center mt-6">
                 <span class="absolute">
@@ -156,26 +142,14 @@
             <input type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password">
           </div>
 
-          <div class="relative flex items-center mt-4">
-                <span class="absolute">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                </span>
 
-            <input type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Confirm Password">
-          </div>
 
           <div class="mt-6">
             <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-              Sign Up
+              Login
             </button>
 
-            <div class="mt-6 text-center ">
-              <a href="#" class="text-sm text-blue-500 hover:underline dark:text-blue-400">
-                Already have an account?
-              </a>
-            </div>
+
           </div>
         </form>
       </div>
@@ -195,10 +169,24 @@ export default {
   data () {
     return {
       login : false,
-      bankValue : ''
+      bankValue : '',
+      bank : '',
+      firstName : '',
+      lastName : '',
+      email : '',
+      pwd : '',
+      gender :'',
+      phoneNumber : '',
+      birthDate : '',
+
     }
   },
-  methods: {},
+  methods: {
+    createAccount() {
+
+    },
+
+  },
   beforeCreate() {
     axios.get('http://localhost:3000/api/banks')
       .then(response => {
