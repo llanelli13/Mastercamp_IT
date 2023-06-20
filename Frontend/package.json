@@ -16,7 +16,9 @@
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "dotenv": "^16.0.3",
+    "filepond": "^4.30.4",
     "vue": "^3.2.13",
+    "vue-filepond": "^7.0.3",
     "vue-qrcode": "^2.2.0",
     "vue-router": "^4.0.13"
   },
