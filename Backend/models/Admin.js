@@ -7,6 +7,10 @@ const adminSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users',
         required: true
+    },
+    agenceAdress: {
+        type: String,
+        required: true
     }
 });
 

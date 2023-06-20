@@ -11,7 +11,7 @@ const routes = [
         component: Home
     },
     {
-        path: '/authentification',
+        path: '/authentification/:type',
         name : 'Authentification',
         component: Authentification
     }

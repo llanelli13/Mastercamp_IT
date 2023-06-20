@@ -24,6 +24,7 @@ router.get("/test", async (req, res) => {
 router.post("/user/login", async (req, res) => {
   try {
     // Find the user by email
+    console.log(req.body)
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       res.status(401).json({ message: "Invalid email" });
@@ -69,6 +70,16 @@ router.post("/user/logout/all", authentification, async (req, res) => {
   }
 });
 
+router.get("/user", authentification, async (req, res) => {
+  try {
+    
+    res.send(req.user);
+  } catch (err) {
+    console.log("not connected")
+    res.status(500).send();
+  }
+});
+
 router.post("/user/register", async (req, res) => {
   console.log(req.body)
 
@@ -93,6 +104,8 @@ router.post("/user/register", async (req, res) => {
     }
   }
 });
+
+
 
 // --------------- [ REQUEST FOR THE LOANS ] -----------------
 

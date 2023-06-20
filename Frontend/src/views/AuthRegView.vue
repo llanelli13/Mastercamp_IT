@@ -8,17 +8,17 @@
       <!-- Buttons SignIn/SignUp -->
 
       <div class=" w-full flex items-center justify-center mt-6">
-        <div v-on:click="this.login=true" class="cursor-pointer w-1/2 pb-4 font-medium text-center text-gray-500 capitalize border-b " :class="{'border-b-2 border-blue-500 text-black' : this.login}">
+        <div v-on:click="loginParam = 'login'" class="cursor-pointer w-1/2 pb-4 font-medium text-center text-gray-500 capitalize border-b " :class="{'border-b-2 border-blue-500 text-black' : loginParam == 'login'}">
           sign in
         </div>
 
-        <div v-on:click="this.login=false" class="cursor-pointer w-1/2 pb-4 font-medium text-center text-gray-500 capitalize border-b " :class="{'border-b-2 border-blue-500 text-black' : !this.login}">
+        <div v-on:click="loginParam = 'register';" class="cursor-pointer w-1/2 pb-4 font-medium text-center text-gray-500 capitalize border-b " :class="{'border-b-2 border-blue-500 text-black' : loginParam == 'register'}">
           sign up
         </div>
       </div>
 
       <div class="w-full flex flex-column justify-center py-3">
-        <form  v-if="!this.login" class="w-full  sm:grid sm:grid-cols-2 gap-4">
+        <form  v-if="loginParam == 'register'" class="w-full  sm:grid sm:grid-cols-2 gap-4">
           <!-- Existing Inputs -->
           <div class="relative flex items-center py-1">
           <span class="absolute">
@@ -115,12 +115,10 @@
           </div>
 
           <div class="col-span-2 mt-6">
-            <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400">
-              Register
-            </button>
+            <input type="button" value="Register" v-on:click="register()" class="w-full cursor-pointer px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400" > 
           </div>
         </form>
-        <form v-if="this.login" class="w-full">
+        <form v-if="loginParam == 'login'" class="w-full">
 
           <div class="relative flex items-center mt-6">
                 <span class="absolute">
@@ -129,7 +127,7 @@
                     </svg>
                 </span>
 
-            <input type="email" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address">
+            <input v-model="loginMail" type="email" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address">
           </div>
 
           <div class="relative flex items-center mt-4">
@@ -139,15 +137,14 @@
                     </svg>
                 </span>
 
-            <input type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password">
+            <input v-model="loginPwd" type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password">
           </div>
 
 
 
           <div class="mt-6">
-            <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-              Login
-            </button>
+            <input value="login" v-on:click="loginUser(loginMail, loginPwd)" type="button" class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+              
 
 
           </div>
@@ -161,14 +158,19 @@
 
 
 <script>
+import router from '@/router';
+
 const axios = require('axios');
 export default {
   name: 'AuthRegView',
   components: {},
+  mounted() {
+    this.loginParam = this.$route.params.type;
+    this.$route.params.type = ""
+  },
   props: {},
   data () {
     return {
-      login : false,
       bankValue : '',
       bank : '',
       firstName : '',
@@ -178,16 +180,77 @@ export default {
       gender :'',
       phoneNumber : '',
       birthDate : '',
+      loginMail: '',
+      loginPwd: '',
+      loginParam: ''
 
     }
   },
-  methods: {
-    createAccount() {
 
+
+  methods: {
+    async register() {
+      let user = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phoneNumber: this.phoneNumber,
+        email: this.email,
+        birthday: this.birthDate,
+        gender: this.gender,
+        password: this.pwd,
+        bank: this.bank.name,
+      };
+
+      console.log(user);
+
+  
+      axios.post('http://localhost:3000/api/user/register', user)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      
     },
+
+    async loginUser(email, password) {
+      try {
+        const response = await fetch('http://localhost:3000/api/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        // Do something with data
+        console.log(data);
+        
+        // Saving auth token to localStorage or other state management.
+        localStorage.setItem("token", data.authToken);
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
 
   },
   beforeCreate() {
+    const token = localStorage.getItem('token');
+
+    axios.get('http://localhost:3000/api/user', {headers: {Authorization: 'Bearer ' + token }})
+      .then(response => {
+        console.log(response)
+        router.push('/')
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
     axios.get('http://localhost:3000/api/banks')
       .then(response => {
         this.bankValue = response.data
@@ -195,6 +258,8 @@ export default {
       .catch(error => {
         console.log(error)
       })
+
+
   }
 }
 </script>

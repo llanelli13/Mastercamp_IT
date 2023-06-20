@@ -1,6 +1,6 @@
 <template>
-  <div class="body" style="height:100vh; overflow-y : scroll;" id="app">
-    <NavBar></NavBar>
+  <div v-if="!this.loading" class="body" style="height:100vh; overflow-y : scroll;" id="app">
+    <NavBar :user="this.userinfo"></NavBar>
     <router-view></router-view>
 
   </div>
@@ -9,7 +9,7 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-
+const axios = require('axios');
 export default {
   name: 'App',
   components: {
@@ -19,8 +19,32 @@ export default {
   },
   data () {
     return {
-     
+      loading: true,
+      userinfo: ''
+
     }
+  },
+
+  beforeMount(){
+    this.getUser()
+  },
+
+  methods: {
+     getUser(){
+      const token = localStorage.getItem('token');
+
+     axios.get('http://localhost:3000/api/user', {headers: {Authorization: 'Bearer ' + token }})
+      .then(response => {
+        console.log(response.data)
+        this.userinfo = response.data        
+        this.loading = false
+      })
+      .catch(error => {
+        console.log(error)
+        this.loading = false
+      })
+    }
+    
   }
 
 }
