@@ -4,6 +4,8 @@ import Home from '../views/HomeView.vue'
 import Authentification from '../views/AuthRegView.vue'
 import DropDocuments from '../views/DropDocuments.vue'
 import LoansDashboard from '../views/LoansDashboard.vue'
+import DocumentValidation from '../views/DocumentValidation.vue'
+import LoanApplication from "@/views/LoanApplication.vue";
 
 
 const routes = [
@@ -28,6 +30,18 @@ const routes = [
         path: '/loansDashboard',
         name : 'LoansDashboard',
         component: LoansDashboard
+    }
+    ,
+    {
+        path: '/documentValidation',
+        name : 'DocumentValidation',
+        component: DocumentValidation
+    }
+    ,
+    {
+        path: '/loanApplication',
+        name : 'LoanApplication',
+        component: LoanApplication
     }
 ]
 

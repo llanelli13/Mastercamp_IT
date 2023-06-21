@@ -1,18 +1,27 @@
 # Banquise 
 
 ## Project setup
+### Frontend
 ```
-npm install
+cd Frontend
+npm i 
+npm install filepond vue-filepond
 ```
 
-### Frontend 
+### Backend
 ```
-npm i 
+cd Backend
+npm i
+```
+## Starting the servers
+### Frontend
+```
 npm run serve
 ```
-### Compiles and hot-reloads for development
+
+### Backend
 ```
-npm run serve
+npm start
 ```
 
 ### Compiles and minifies for production

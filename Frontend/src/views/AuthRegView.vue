@@ -204,7 +204,7 @@ export default {
       console.log(user);
 
   
-      axios.post('http://localhost:3000/api/user/register', user)
+      axios.post('http://localhost:3001/api/user/register', user)
         .then(response => {
           console.log(response.data);
         })
@@ -216,7 +216,7 @@ export default {
 
     async loginUser(email, password) {
       try {
-        const response = await fetch('http://localhost:3000/api/user/login', {
+        const response = await fetch('http://localhost:3001/api/user/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -242,7 +242,7 @@ export default {
   beforeCreate() {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:3000/api/user', {headers: {Authorization: 'Bearer ' + token }})
+    axios.get('http://localhost:3001/api/user', {headers: {Authorization: 'Bearer ' + token }})
       .then(response => {
         console.log(response)
         router.push('/')
@@ -251,7 +251,7 @@ export default {
         console.log(error)
       })
 
-    axios.get('http://localhost:3000/api/banks')
+    axios.get('http://localhost:3001/api/banks')
       .then(response => {
         this.bankValue = response.data
       })

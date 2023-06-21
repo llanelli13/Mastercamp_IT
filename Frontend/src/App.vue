@@ -33,7 +33,7 @@ export default {
      getUser(){
       const token = localStorage.getItem('token');
 
-     axios.get('http://localhost:3000/api/user', {headers: {Authorization: 'Bearer ' + token }})
+     axios.get('http://localhost:3001/api/user', {headers: {Authorization: 'Bearer ' + token }})
       .then(response => {
         console.log(response.data)
         this.userinfo = response.data        

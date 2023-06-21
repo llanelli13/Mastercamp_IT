@@ -23,7 +23,7 @@
                 </th>
 
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                  Date
+                  Purpose
                 </th>
 
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
@@ -52,7 +52,7 @@
                     <span>#3066</span>
                   </div>
                 </td>
-                <td class="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">Jan 6, 2022</td>
+                <td class="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">Buying a house</td>
                 <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                   <StatusComp :status="status"></StatusComp>
                 </td>
