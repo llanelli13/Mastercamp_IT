@@ -1,8 +1,6 @@
 <template>
   <header class="z-20 bg-white fixed w-full" v-if="!this.$parent.loading">
-    <div
-        class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4"
-    >
+    <div class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4">
       <router-link class="block text-teal-600" to="/">
         <span class="sr-only">Home</span>
         <img src="../assets/Logo.png" alt="" class="h-8">
@@ -16,19 +14,17 @@
                 About
               </router-link>
             </li>
-
           </ul>
         </nav>
 
-        <div  class="flex items-center gap-4">
+        <div class="relative flex items-center gap-4">
           <div v-if="!user" class="sm:flex sm:gap-4">
             <router-link
-                class="block rounded-md bg-myBlue px-5 py-2.5 text-sm font-medium text-white transition hover:bg-myDarkBlue"
+                class="hidden rounded-md bg-myBlue px-5 py-2.5 text-sm font-medium text-white transition hover:bg-myDarkBlue sm:block"
                 to="/authentification/login"
             >
               Login
             </router-link>
-
             <router-link
                 class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-myDarkBlue transition hover:text-myBlue sm:block"
                 to="/authentification/register"
@@ -36,26 +32,28 @@
               Register
             </router-link>
           </div>
-          <div v-if="user"  class="sm:flex sm:gap-4">
-            <div class="flex items-center mt-4 lg:mt-0">
-                    <button class="hidden mx-4 text-gray-600 transition-colors duration-300 transform lg:block dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 focus:text-gray-700 dark:focus:text-gray-400 focus:outline-none" aria-label="show notifications">
-                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 17H20L18.5951 15.5951C18.2141 15.2141 18 14.6973 18 14.1585V11C18 8.38757 16.3304 6.16509 14 5.34142V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V5.34142C7.66962 6.16509 6 8.38757 6 11V14.1585C6 14.6973 5.78595 15.2141 5.40493 15.5951L4 17H9M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
 
-                    <button type="button" class="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
-                        <div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                            <img src="">
-                        </div>
+          <div v-if="user" class="sm:flex sm:gap-4">
+            <router-link
+                class="hidden rounded-md bg-myBlue px-5 py-2.5 text-sm font-medium text-white transition hover:bg-myDarkBlue sm:block"
+                to="/loanApplication"
+            >
+              Ask for a loan
+            </router-link>
 
-                        <h3 class="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">NAME</h3>
-                    </button>
-                </div>
+            <router-link
+                class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-myDarkBlue transition hover:text-myBlue sm:block"
+                to="/profile"
+
+
+            >
+              Profile
+            </router-link>
           </div>
 
           <button
-              class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+              class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 sm:hidden"
+              @click="showMenu = !showMenu"
           >
             <span class="sr-only">Toggle menu</span>
             <svg
@@ -73,6 +71,27 @@
               />
             </svg>
           </button>
+
+          <div
+              class="absolute top-2 right-0 w-48 py-2 mt-2 bg-white rounded-lg shadow-md md:hidden"
+              v-show="showMenu"
+          >
+            <router-link
+                class="block px-4 py-2 text-myDarkBlue hover:bg-gray-100"
+                :to="user ? '/loanApplication' : '/authentification/login'"
+                @click="showMenu = !showMenu"
+
+            >
+              {{ user ? 'Ask for a loan' : 'Login' }}
+            </router-link>
+            <router-link
+                class="block px-4 py-2 text-myDarkBlue hover:bg-gray-100"
+                :to="user ? '/profile' : '/authentification/register'"
+                @click="showMenu = !showMenu"
+            >
+              {{ user ? 'Profile' : 'Register' }}
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -83,15 +102,18 @@
 export default {
   name: 'NavBar',
   props: {
-    user: String
+    user: String,
   },
-  created(){
-    console.log(this.user)
-  }
-}
+  data() {
+    return {
+      showMenu: false,
+    };
+  },
+  created() {
+    console.log(this.user);
+  },
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>

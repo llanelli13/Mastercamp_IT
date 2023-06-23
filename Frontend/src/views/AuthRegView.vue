@@ -16,6 +16,9 @@
           sign up
         </div>
       </div>
+      <div v-if="showAlert" class="fixed top-0.1 left-0.5 w-full z-50">
+        <AlertComp :showAlert="showAlert" :alertMessage="alertMessage" :success="registrationSuccess" />
+      </div>
 
       <div class="w-full flex flex-column justify-center py-3">
         <form  v-if="loginParam == 'register'" class="w-full  sm:grid sm:grid-cols-2 gap-4">
@@ -115,7 +118,7 @@
           </div>
 
           <div class="col-span-2 mt-6">
-            <input type="button" value="Register" v-on:click="register()" class="w-full cursor-pointer px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400" > 
+            <input type="button" value="Register" v-on:click="register()" class="w-full cursor-pointer px-6 py-3 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400" >
           </div>
         </form>
         <form v-if="loginParam == 'login'" class="w-full">
@@ -144,7 +147,7 @@
 
           <div class="mt-6">
             <input value="login" v-on:click="loginUser(loginMail, loginPwd)" type="button" class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-              
+
 
 
           </div>
@@ -159,11 +162,12 @@
 
 <script>
 import router from '@/router';
+import AlertComp from '@/components/AlertComp.vue';
 
 const axios = require('axios');
 export default {
   name: 'AuthRegView',
-  components: {},
+  components: {AlertComp},
   mounted() {
     this.loginParam = this.$route.params.type;
     this.$route.params.type = ""
@@ -182,7 +186,10 @@ export default {
       birthDate : '',
       loginMail: '',
       loginPwd: '',
-      loginParam: ''
+      loginParam: '',
+      showAlert: false,
+      alertMessage: '',
+      registrationSuccess: false,
 
     }
   },
@@ -203,20 +210,39 @@ export default {
 
       console.log(user);
 
-  
-      axios.post('http://localhost:3001/api/user/register', user)
+
+      axios.post('http://localhost:3000/api/user/register', user)
         .then(response => {
           console.log(response.data);
+          this.showAlert = true;
+          this.alertMessage = 'Successful registration';
+          setTimeout(() => {
+            this.showAlert = false;
+            this.registrationSuccess = true;
+          }, 3000);
         })
         .catch(error => {
           console.log(error);
+          this.showAlert = true;
+          this.alertMessage = 'Unsuccesfull registration';
+          this.registrationSuccess = false;
+          setTimeout(() => {
+            this.showAlert = false;
+          }, 3000);
         });
-      
+
+      this.accountRegistered = true;
+
+      // Hide the message after 3 seconds (3000 milliseconds).
+      setTimeout(() => {
+        this.accountRegistered = false;
+      }, 3000);
+
     },
 
     async loginUser(email, password) {
       try {
-        const response = await fetch('http://localhost:3001/api/user/login', {
+        const response = await fetch('http://localhost:3000/api/user/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -228,7 +254,7 @@ export default {
 
         // Do something with data
         console.log(data);
-        
+
         // Saving auth token to localStorage or other state management.
         localStorage.setItem("token", data.authToken);
 
@@ -242,7 +268,7 @@ export default {
   beforeCreate() {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:3001/api/user', {headers: {Authorization: 'Bearer ' + token }})
+    axios.get('http://localhost:3000/api/user', {headers: {Authorization: 'Bearer ' + token }})
       .then(response => {
         console.log(response)
         router.push('/')
@@ -251,7 +277,7 @@ export default {
         console.log(error)
       })
 
-    axios.get('http://localhost:3001/api/banks')
+    axios.get('http://localhost:3000/api/banks')
       .then(response => {
         this.bankValue = response.data
       })

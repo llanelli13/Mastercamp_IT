@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!this.loading" class="body" style="height:100vh; overflow-y : scroll;" id="app">
+  <div v-if="!this.loading" class="body relative" style="height:100vh; overflow-y : scroll;" id="app">
     <NavBar :user="this.userinfo"></NavBar>
     <router-view></router-view>
 
@@ -33,7 +33,7 @@ export default {
      getUser(){
       const token = localStorage.getItem('token');
 
-     axios.get('http://localhost:3001/api/user', {headers: {Authorization: 'Bearer ' + token }})
+     axios.get('http://localhost:3000/api/user', {headers: {Authorization: 'Bearer ' + token }})
       .then(response => {
         console.log(response.data)
         this.userinfo = response.data        
