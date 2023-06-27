@@ -49,6 +49,14 @@
             >
               Profile
             </router-link>
+            <router-link
+                class="rounded-md bg-red-500 px-5 py-2.5 text-sm font-medium text-white transition sm:block"
+                to="/loansDashboard"
+
+
+            >
+              Administration
+            </router-link>
           </div>
 
           <button
@@ -103,6 +111,7 @@ export default {
   name: 'NavBar',
   props: {
     user: String,
+    adm: Boolean
   },
   data() {
     return {
@@ -112,6 +121,11 @@ export default {
   created() {
     console.log(this.user);
   },
+
+  methods: {
+    
+  }
+  
 };
 </script>
 
