@@ -20,13 +20,14 @@ export default {
   data () {
     return {
       loading: true,
-      userinfo: ''
-
+      userinfo: '',
+      adm: false
     }
   },
 
   beforeMount(){
     this.getUser()
+    this.adm = this.isAdm()
   },
 
   methods: {
@@ -43,11 +44,25 @@ export default {
         console.log(error)
         this.loading = false
       })
+    },
+
+    isAdm(){
+      const token = localStorage.getItem('token');
+
+      axios.get('http://localhost:3000/api/user/isadmin', {headers: {Authorization: 'Bearer ' + token }})
+        .then(response => {
+          console.log("admin " + response.data)
+          return response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
     }
     
   }
 
-}
+
 </script>
 
 <style>

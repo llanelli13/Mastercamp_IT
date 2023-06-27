@@ -72,13 +72,40 @@ router.post("/user/logout/all", authentification, async (req, res) => {
 
 router.get("/user", authentification, async (req, res) => {
   try {
-    
     res.send(req.user);
   } catch (err) {
     console.log("not connected")
     res.status(500).send();
   }
 });
+
+router.get("/user/findone/:id", authentification, async (req, res) => {
+  try {
+    const admin = await Admin.findOne({ adminUser: req.user._id })
+    if(!admin){
+      return res.status(403).json({error: 'user is not admin'})
+    }
+    const user = await User.findOne({ _id: req.params.id });
+    res.send(user);
+  } catch (err) {
+    console.log("not connected")
+    res.status(500).send();
+  }
+});
+
+router.get("/user/isadmin", authentification, async (req, res) => {
+  try {
+    const adm = await Admin.findOne({ adminUser: req.user._id });
+    if(adm){
+      res.send(true)
+    }
+    res.send(false)
+  } catch (err) {
+    console.log("not connected")
+    res.status(500).send();
+  }
+});
+
 
 router.post("/user/register", async (req, res) => {
   console.log(req.body)
@@ -243,7 +270,18 @@ router.get('/loan', authentification, async (req, res) => {
 
     const loans = await Loan.find();
 
-    res.json(loans);
+    // Map through the loans array and fetch user details for each loan
+    const loansWithUserDetails = await Promise.all(
+      loans.map(async (loan) => {
+        const user = await User.findOne({ _id: loan.userId });
+        return {
+          loan,
+          user
+        };
+      })
+    );
+
+    res.json(loansWithUserDetails);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to fetch loans' });
