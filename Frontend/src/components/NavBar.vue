@@ -1,5 +1,5 @@
 <template>
-  <header class="z-20 bg-white fixed w-full" v-if="!this.$parent.loading">
+  <header class="z-40 bg-white fixed w-full" v-if="!this.$parent.loading">
     <div class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4">
       <router-link class="block text-teal-600" to="/">
         <span class="sr-only">Home</span>
@@ -50,6 +50,7 @@
               Profile
             </router-link>
             <router-link
+                v-if="this.adm == true"
                 class="rounded-md bg-red-500 px-5 py-2.5 text-sm font-medium text-white transition sm:block"
                 to="/loansDashboard"
 
@@ -115,13 +116,12 @@ export default {
   },
   data() {
     return {
-      showMenu: false,
+      showMenu: false
     };
   },
   created() {
     console.log(this.user);
   },
-
   methods: {
     
   }

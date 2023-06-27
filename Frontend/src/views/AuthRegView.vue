@@ -214,21 +214,12 @@ export default {
       axios.post('http://localhost:3000/api/user/register', user)
         .then(response => {
           console.log(response.data);
-          this.showAlert = true;
-          this.alertMessage = 'Successful registration';
-          setTimeout(() => {
-            this.showAlert = false;
-            this.registrationSuccess = true;
-          }, 3000);
+
+          
         })
         .catch(error => {
           console.log(error);
-          this.showAlert = true;
-          this.alertMessage = 'Unsuccesfull registration';
-          this.registrationSuccess = false;
-          setTimeout(() => {
-            this.showAlert = false;
-          }, 3000);
+      
         });
 
       this.accountRegistered = true;
@@ -257,6 +248,8 @@ export default {
 
         // Saving auth token to localStorage or other state management.
         localStorage.setItem("token", data.authToken);
+        this.$parent.$parent.getUser()
+        router.push('/')
 
       } catch (error) {
         console.error(error);

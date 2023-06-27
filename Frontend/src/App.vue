@@ -1,6 +1,6 @@
 <template>
   <div v-if="!this.loading" class="body relative" style="height:100vh; overflow-y : scroll;" id="app">
-    <NavBar :user="this.userinfo"></NavBar>
+    <NavBar :user="this.userinfo" :adm="adm"></NavBar>
     <router-view></router-view>
 
   </div>
@@ -27,18 +27,27 @@ export default {
 
   beforeMount(){
     this.getUser()
-    this.adm = this.isAdm()
+    this.loading = false
   },
 
   methods: {
-     getUser(){
+     async getUser(){
       const token = localStorage.getItem('token');
 
      axios.get('http://localhost:3000/api/user', {headers: {Authorization: 'Bearer ' + token }})
       .then(response => {
         console.log(response.data)
-        this.userinfo = response.data        
+        this.userinfo = response.data 
+        axios.get('http://localhost:3000/api/user/isadmin', {headers: {Authorization: 'Bearer ' + token }})
+        .then(response => {
+          console.log("admin " + response.data)
+          this.adm = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
         this.loading = false
+             
       })
       .catch(error => {
         console.log(error)
@@ -46,18 +55,7 @@ export default {
       })
     },
 
-    isAdm(){
-      const token = localStorage.getItem('token');
-
-      axios.get('http://localhost:3000/api/user/isadmin', {headers: {Authorization: 'Bearer ' + token }})
-        .then(response => {
-          console.log("admin " + response.data)
-          return response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      }
+  
     }
     
   }

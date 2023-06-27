@@ -97,6 +97,8 @@ export default {
       axios.post('http://localhost:3000/api/user/logout',null , {headers: {Authorization: 'Bearer ' + token }})
           .then(response => {
             console.log(response.data)
+            this.$parent.$parent.userinfo = ''
+
             router.push({ name: 'Home' })
 
           })
