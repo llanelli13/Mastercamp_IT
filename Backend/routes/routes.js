@@ -220,7 +220,7 @@ router.put('/loan/refuse/:id', authentification, async (req, res) => {
     }
     
     if(loan.status == 'pending'){
-      loan.status = 'refused';
+      loan.status = 'rejected';
       loan.reason = reason;
 
     }else{
