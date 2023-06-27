@@ -1,11 +1,8 @@
 <template>
-
-  <div class="mt-20 w-2/3 mx-auto">
-    <h2 class="sr-only">Steps</h2>
-
+  <div class="mt-20 w-2/3 mx-auto h-5/6">
     <div>
-      <ol class="grid grid-cols-1 divide-x divide-gray-100 overflow-hidden rounded-lg border border-gray-100 text-sm text-gray-500 sm:grid-cols-3">
-        <li @click="this.selected = 1" class="flex items-center justify-center gap-2 p-4" :class="{'relative bg-gray-50' : selected == 1}">
+      <ol class="grid grid-cols-1 divide-x divide-gray-100 overflow-hidden rounded-lg border border-gray-100 text-sm  sm:grid-cols-3">
+        <li @click="this.selected = 1" class="flex items-center justify-center gap-2 p-4" :class="{'relative bg-myBlue text-white' : selected == 1 , 'relative bg-myDarkBlue text-gray-400' :selected != 1}">
           <svg
               class="h-7 w-7 shrink-0"
               xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +23,7 @@
           </p>
         </li>
 
-        <li @click="this.selected = 2" class="flex items-center justify-center gap-2  p-4" :class="{'relative bg-gray-50' : selected == 2}">
+        <li @click="this.selected = 2" class="flex items-center justify-center  gap-2  p-4" :class="{'relative bg-myBlue text-white' : selected == 2 , 'relative bg-myDarkBlue text-gray-400' :selected != 2}">
         <span
             class="absolute -left-2 top-1/2 hidden h-4 w-4 -translate-y-1/2 rotate-45 border border-gray-100 ltr:border-b-0 ltr:border-s-0 ltr:bg-white rtl:border-e-0 rtl:border-t-0 rtl:bg-gray-50 sm:block">
         </span>
@@ -61,7 +58,7 @@
           </p>
         </li>
 
-        <li @click="this.selected = 3" class="flex items-center justify-center gap-2 p-4" :class="{'relative bg-gray-50' : selected == 3}">
+        <li @click="this.selected = 3" class="flex items-center justify-center  gap-2 p-4" :class="{'relative bg-myBlue text-white' : selected == 3 , 'relative bg-myDarkBlue text-gray-400' :selected != 3}">
           <svg
               class="h-7 w-7 shrink-0"
               xmlns="http://www.w3.org/2000/svg"
@@ -84,36 +81,65 @@
         </li>
       </ol>
     </div>
+    <div class="h-5/6 mt-10 sm:flex relative">
+      <div class="w-full mb-2 sm:w-2/5 mx-auto bg-gray-500 h-full aspect-auto "></div>
+      <div class="w-4/5 h-1/2 sm:w-2/5 sm:h-4/5 mx-auto">
+        <div v-if="!isSmallScreen || opened" class="h-2/3">
+          <label for="Description" class="block text-sm text-black mb-2">Information about the document to communicate</label>
+          <textarea placeholder="Ex: Pay for my studies..."
+                    class="block w-full h-4/6 placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+          </textarea>
+        </div>
+        <div v-else @click="opened = true" class="h-1/3 flex items-center justify-center text-gray-500">
+          Open description
+        </div>
+        <div class="h-1/3">
+
+          <div class="flex flex-col w-full">
+            <input
+                className="px-6 w-auto sm:w-auto mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                type="submit"
+                value="Validate file"
+            />
+            <input
+                className="px-6 w-auto sm:w-auto  mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                type="submit"
+                value="Refuse file"
+
+
+            />
+
+          </div>
+        </div>
+        </div>
+
+
+    </div>
+
+
   </div>
 
 </template>
 <script>
-
-
 export default {
   name: 'DocumentValidation',
-  components: {
-
-  },
-  props: {
-  
-  },
-
-  data () {
+  components: {},
+  props: {},
+  data() {
     return {
-      selected : 1,
-        
-    }
+      selected: 1,
+      opened: false,
+    };
   },
-
-  
-  methods: {
-        
- 
-    
+  methods: {},
+  computed: {
+    isSmallScreen() {
+      return window.innerWidth < 640; // Adjust the threshold as per your requirements
     },
-}
+  },
+};
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
