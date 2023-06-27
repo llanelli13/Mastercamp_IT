@@ -11,33 +11,50 @@
           <div class="mt-2 md:mx-6 flex items-center">
             <div class="h-2/5 mr-10 py-4">
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-sm text-black">Total amount of your loan</label>
+                <label for="username" class="block text-xs sm:text-xs sm:text-sm text-black">Total amount of your loan</label>
                 <input type="text" placeholder="Amount" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-sm text-black">Total amount of your loan</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Total amount of your loan</label>
                 <input type="text" placeholder="Amount" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-sm text-black">Total amount of your loan</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Total amount of your loan</label>
                 <input type="text" placeholder="Amount" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
             </div>
             <div class="h-2/5 ml-10">
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-sm text-black">Total amount of your loan</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Total amount of your loan</label>
                 <input type="text" placeholder="Amount" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-sm text-black">Total amount of your loan</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Total amount of your loan</label>
                 <input type="text" placeholder="Amount" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-sm text-black">Total amount of your loan</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Total amount of your loan</label>
                 <input type="text" placeholder="Amount" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
             </div>
 
+
+
+
+          </div>
+          <div class="flex justify-evenly sm:flex-col">
+            <input
+                className="px-6 w-2/5 sm:w-auto sm:mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                type="submit"
+                value="Save"
+            />
+            <input
+                className="px-6 w-2/5 sm:w-auto py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                type="submit"
+                value="Logout"
+                @click="logout"
+
+            />
 
           </div>
         </div>
@@ -48,6 +65,9 @@
 </template>
 <script>
 
+
+import axios from "axios";
+import router from "@/router";
 
 export default {
   name: 'ProfilePage',
@@ -66,9 +86,24 @@ export default {
 
   
   methods: {
-        
- 
-    
+    logout() {
+      const token = localStorage.getItem('token');
+      // Exemple avec Axios :
+      axios.post('http://localhost:3000/api/user/logout',null , {headers: {Authorization: 'Bearer ' + token }})
+          .then(response => {
+            console.log(response.data)
+            router.push({ name: 'Home' })
+
+          })
+          .catch(error => {
+            console.log(error)
+
+          })
+    },
+
+
+
+
     },
 }
 </script>
