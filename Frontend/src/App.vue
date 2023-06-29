@@ -21,7 +21,9 @@ export default {
     return {
       loading: true,
       userinfo: '',
-      adm: false
+      adm: false,
+
+
     }
   },
 
@@ -55,10 +57,72 @@ export default {
       })
     },
 
+    async getDocuments() {
+      await this.waitingForUser();
+      const token = localStorage.getItem('token');
+
+      const pdfSource = {
+        'id': '',
+        'compte': '',
+        'revenus': '',
+      };
+
+      const requests = [
+        axios.get(`http://localhost:3000/api/file/${this.userinfo._id}/id`, {headers: {Authorization: 'Bearer ' + token }})
+            .then(response => {
+              pdfSource.id = response.data;
+            })
+            .catch(error => {
+              console.log('TKT ' + error);
+              pdfSource.id = 'none';
+            }),
+
+        axios.get(`http://localhost:3000/api/file/${this.userinfo._id}/compte`, {headers: {Authorization: 'Bearer ' + token }})
+            .then(response => {
+              pdfSource.compte = response.data;
+            })
+            .catch(error => {
+              console.log('TKT ' + error);
+              pdfSource.compte = 'none';
+            }),
+
+        axios.get(`http://localhost:3000/api/file/${this.userinfo._id}/revenus`, {headers: {Authorization: 'Bearer ' + token }})
+            .then(response => {
+              pdfSource.revenus = response.data;
+            })
+            .catch(error => {
+              console.log('TKT ' + error);
+              pdfSource.revenus = 'none';
+            })
+      ];
+
+      await Promise.all(requests);
+
+
+      return pdfSource;
+
+  },
+
+
+    waitingForUser(){
+      return new Promise((resolve) => {
+
+        const interval = setInterval(() => {
+          console.log("waiting ..");
+          if (this.userinfo !== null) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 100);
+      });
+    },
+  },}
   
-    }
+
     
-  }
+
+
+
 
 
 </script>

@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const mongoString = process.env.DATABASE_URL;
 
+
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
@@ -24,6 +25,10 @@ const path = require('path');
 const upload = multer({ dest: 'uploads/' }); // you will need to use this in your routes file
 
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
+
 
 app.use(express.json());
 app.use(bodyParser.json());
