@@ -330,7 +330,7 @@ router.post('/upload/:type', upload, authentification, async (req, res) => {
     const uploadedFile = req.files[0];
 
     // Assuming you have a publicly accessible directory 'public/uploads'
-    const fileLink = `/uploads/${uploadedFile.filename}`;
+    const fileLink = `http://localhost:3000/uploads/${uploadedFile.filename}`;
 
     // Create a new Document
     const document = new Document({
@@ -360,15 +360,13 @@ router.get('/file/:user/:name', authentification, async (req, res) => {
       return res.status(404).json({ error: 'Document not found' });
     }
 
-    const filePath = path.join(__dirname, '..', document.documentLink);
 
-    res.sendFile(filePath);
+    res.send(document.documentLink);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to retrieve file' });
   }
 });
-
 // --------------- [ Messagerie ] -----------------
 
 
