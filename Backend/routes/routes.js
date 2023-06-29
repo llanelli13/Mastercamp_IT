@@ -360,7 +360,7 @@ router.get('/file/:user/:name', authentification, async (req, res) => {
       return res.status(404).json({ error: 'Document not found' });
     }
 
-    const filePath = path.join(__dirname, '..', 'uploads', document.documentLink);
+    const filePath = path.join(__dirname, '..', document.documentLink);
 
     res.sendFile(filePath);
   } catch (error) {
