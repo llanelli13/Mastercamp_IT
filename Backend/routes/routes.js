@@ -305,17 +305,42 @@ router.get('/loan/user/:id', authentification, async (req, res) => {
 });
 
 
+
 // --------------- [ REQUEST To upload and get a file ] -----------------
 
-router.post('/upload', authentification, async (req, res) => {
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) // Append extension
+  }
+})
+
+let upload = multer({ storage: storage }).any();
+
+router.post('/upload/:type', upload, authentification, async (req, res) => {
   try {
     const admin = await Admin.findOne({ adminUser: req.user._id });
 
-    // Access the uploaded file using req.file
-    const uploadedFile = req.file;
+    // Access the uploaded file using req.files
+    const uploadedFile = req.files[0];
 
     // Assuming you have a publicly accessible directory 'public/uploads'
-    const fileLink = `${req.protocol}://${req.get('host')}/uploads/${uploadedFile.filename}`;
+    const fileLink = `/uploads/${uploadedFile.filename}`;
+
+    // Create a new Document
+    const document = new Document({
+      userId: req.user._id, // Assuming user ID is available on req.user._id
+      documentName: req.params.type,
+      documentLink: fileLink
+    });
+
+    // Save the document
+    await document.save();
 
     res.json({ link: fileLink });
   } catch (error) {
@@ -324,22 +349,23 @@ router.post('/upload', authentification, async (req, res) => {
   }
 });
 
-router.get('/file/:name', authentification, async (req, res) => {
-  try {
-    const fileName = req.params.name;
-    const filePath = path.join(__dirname, '../uploads/', fileName);
 
-    // Check if the file exists
-    if (fs.existsSync(filePath)) {
-      // Assuming the file is publicly accessible, you can send its link in the response
-      const fileLink = `${req.protocol}://${req.get('host')}/uploads/${fileName}`;
-      res.json({ link: fileLink });
-    } else {
-      res.status(404).json({ error: 'File not found' });
+router.get('/file/:user/:name', authentification, async (req, res) => {
+  try {
+    const userId = req.params.user;
+    const documentName = req.params.name;
+
+    const document = await Document.findOne({ userId: userId, documentName: documentName });
+    if (!document) {
+      return res.status(404).json({ error: 'Document not found' });
     }
+
+    const filePath = path.join(__dirname, '..', 'uploads', document.documentLink);
+
+    res.sendFile(filePath);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to retrieve file link' });
+    res.status(500).json({ error: 'Failed to retrieve file' });
   }
 });
 

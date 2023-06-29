@@ -8,18 +8,13 @@ const documentSchema = new Schema({
         ref: 'User',
         required: true
     },
-    documentType: {
+    documentName: {
         type: String,
         required: true
     },
     documentLink: {
         type: String,
         required: true
-    },
-    verificationStatus: {
-        type: String,
-        enum: ['pending', 'verified', 'not verified'],
-        default: 'pending'
     }
 });
 

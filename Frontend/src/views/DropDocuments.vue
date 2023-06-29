@@ -2,36 +2,57 @@
   <div class="w-full h-screen" style="background-color: rgba(10,172,226,0.8)">
     <h1 class="text-3xl font-extrabold sm:text-5xl pt-20 w-full text-center text-blue-950">Drop Documents</h1>
     <div class="cursor-pointer justify-center">
-      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Drop your first document here</h3>
+      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Pièce d'identité</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
-          name="filepond"
+          name="identity"
           label-idle="Drop files here or browse..."
           allow-multiple="true"
           accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          server="/api/upload"
+          :server="{
+            url: 'http://localhost:3000/api/upload/id',
+            process: {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            }
+          }"
       />
     </div>
     <div class="cursor-pointer justify-center">
-      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Drop your second document here</h3>
+      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Relevé de compte (3 derniers mois)</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
-          name="filepond"
+          name="compte"
           label-idle="Drop files here or browse..."
           allow-multiple="true"
           accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          server="/api/upload"
+          :server="{
+            url: 'http://localhost:3000/api/upload/compte',
+            process: {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            }
+          }"
       />
     </div>
     <div class="cursor-pointer justify-center">
-      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Drop your third document here</h3>
+      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Justificatif de revenus</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
-          name="filepond"
+          name="revenus"
           label-idle="Drop files here or browse..."
           allow-multiple="true"
           accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          server="/api/upload"
+          :server="{
+            url: 'http://localhost:3000/api/upload/revenus',
+            process: {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            }
+          }"
       />
     </div>
   </div>
@@ -53,8 +74,12 @@ export default {
 
   data () {
     return {
-        
+        token: ''
     }
+  },
+
+  mounted(){
+    this.token = localStorage.getItem('token');
   },
 
   
