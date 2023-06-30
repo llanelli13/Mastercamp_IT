@@ -1,39 +1,27 @@
 <template>
-  <div  className="fixed top-0 flex w-full h-20 max-w-sm overflow-hidden bg-white rounded-lg shadow-md">
-    <div v-if="success" className="flex items-center justify-center w-12 bg-emerald-500">
-      <svg className="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"
-        />
-      </svg>
+    <div class="fixed rounded z-44 right-8 top-20 p-4"  style="max-width: 35vw; min-width: 20vw;"  v-if="titre && msg" :class="{ 'bg-green-300': status == 1, 'bg-red-300' : status == 2 }">
+        <h1 v-on:click="this.$parent.createNotif('', '', null)" class="absolute right-4 top-2 cursor-pointer">X</h1>
+        <div>
+            <h1 class="mb-4" style="font-weight: 600;">{{ titre }}</h1>
+            <h3>{{ msg }}</h3>
+        </div>
+     
     </div>
-
-    <div v-else class="flex items-center justify-center w-12 bg-red-500">
-      <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
-      </svg>
-    </div>
-
-    <div className="px-4 py-2 -mx-3">
-      <div className="mx-3">
-        <span className="font-semibold text-black ">{{ success ? 'Success' : 'Fail' }}</span>
-        <p className="text-sm text-gray-600 dark:text-black">{{ alertMessage }}</p>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'AlertComp',
-  props: {
-    showAlert: Boolean,
-    alertMessage: String,
-    success :Boolean
-  },
-
-  beforeCreate() {
-    console.log(this.success)
+  </template>
+  
+  <script>
+  export default {
+    name: 'AlertComp',
+    props: {
+        titre: String,
+        msg: String,
+        status: Number
+    }
   }
-}
-</script>
+  </script>
+  
+  <!-- Add "scoped" attribute to limit CSS to this component only -->
+  <style scoped>
+  
+  </style>
+  

@@ -16,9 +16,7 @@
           sign up
         </div>
       </div>
-      <div v-if="showAlert" class="fixed top-0.1 left-0.5 w-full z-50">
-        <AlertComp :showAlert="showAlert" :alertMessage="alertMessage" :success="registrationSuccess" />
-      </div>
+  
 
       <div class="w-full flex flex-column justify-center py-3">
         <form  v-if="loginParam == 'register'" class="w-full  sm:grid sm:grid-cols-2 gap-4">
@@ -162,12 +160,10 @@
 
 <script>
 import router from '@/router';
-import AlertComp from '@/components/AlertComp.vue';
 
 const axios = require('axios');
 export default {
   name: 'AuthRegView',
-  components: {AlertComp},
   mounted() {
     this.loginParam = this.$route.params.type;
     this.$route.params.type = ""
@@ -187,8 +183,6 @@ export default {
       loginMail: '',
       loginPwd: '',
       loginParam: '',
-      showAlert: false,
-      alertMessage: '',
       registrationSuccess: false,
 
     }
@@ -213,11 +207,15 @@ export default {
 
       axios.post('http://localhost:3000/api/user/register', user)
         .then(response => {
+          this.$parent.$parent.createNotif("Success", "Your account has been registered", 1)
+
           console.log(response.data);
 
           
         })
         .catch(error => {
+          this.$parent.$parent.createNotif("Error", "Failed to register your account", 2)
+
           console.log(error);
       
         });
@@ -231,29 +229,26 @@ export default {
 
     },
 
-    async loginUser(email, password) {
-      try {
-        const response = await fetch('http://localhost:3000/api/user/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
+
+    loginUser(email, password) {
+      axios.post('http://localhost:3000/api/user/login', { email, password })
+        .then(response => {
+          const data = response.data;
+
+          // Do something with data
+          console.log(data);
+
+          // Saving auth token to localStorage or other state management.
+          localStorage.setItem("token", data.authToken);
+          this.$parent.$parent.getUser()
+          this.$parent.$parent.createNotif("Success", "You are connected to your account", 1)
+
+          router.push('/')
+        })
+        .catch(error => {
+          this.$parent.$parent.createNotif("Error", "Connection Failed", 2)
+          console.error(error);
         });
-
-        const data = await response.json();
-
-        // Do something with data
-        console.log(data);
-
-        // Saving auth token to localStorage or other state management.
-        localStorage.setItem("token", data.authToken);
-        this.$parent.$parent.getUser()
-        router.push('/')
-
-      } catch (error) {
-        console.error(error);
-      }
     }
 
 

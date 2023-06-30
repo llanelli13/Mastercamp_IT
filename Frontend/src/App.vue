@@ -1,5 +1,6 @@
 <template>
   <div v-if="!this.loading" class="body relative" style="height:100vh; overflow-y : scroll;" id="app">
+    <AlertComp :titre="notifTitre" :msg="notifMsg" :status='notifType'></AlertComp>
     <NavBar :user="this.userinfo" :adm="adm"></NavBar>
     <router-view></router-view>
 
@@ -9,11 +10,13 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import AlertComp from "@/components/AlertComp.vue";
+
 const axios = require('axios');
 export default {
   name: 'App',
   components: {
-
+    AlertComp,
     NavBar,
 
   },
@@ -23,9 +26,14 @@ export default {
       userinfo: '',
       adm: false,
 
+      notifTitre: '',
+      notifMsg: '',
+      notifType: 0
 
     }
   },
+
+
 
   beforeMount(){
     this.getUser()
@@ -116,7 +124,25 @@ export default {
         }, 100);
       });
     },
-  },}
+
+
+    createNotif(titre, msg, type){
+      this.notifTitre = titre;
+      this.notifMsg = msg;
+      this.notifType = type;
+
+      setTimeout(() => {
+        this.notifTitre = "";
+        this.notifMsg = "";
+        this.notifType = "";
+      }, 5000); // 3000 milliseconds = 3 seconds
+    }
+
+
+  },
+
+
+}
   
 
     
