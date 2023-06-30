@@ -274,8 +274,18 @@ router.get('/loan', authentification, async (req, res) => {
     const loansWithUserDetails = await Promise.all(
       loans.map(async (loan) => {
         const user = await User.findOne({ _id: loan.userId });
+
+        // Check for each document type
+        const idDocumentExists = !!await Document.exists({ userId: loan.userId, documentName: 'id' });
+        const compteDocumentExists = !!await Document.exists({ userId: loan.userId, documentName: 'compte' });
+        const revenueDocumentExists = !!await Document.exists({ userId: loan.userId, documentName: 'revenue' });
+
+        // Convert Mongoose document to JS object and add validation array
+        let loanObject = loan.toObject();
+        loanObject.validation = [idDocumentExists, compteDocumentExists, revenueDocumentExists];
+
         return {
-          loan,
+          loan: loanObject,
           user
         };
       })
