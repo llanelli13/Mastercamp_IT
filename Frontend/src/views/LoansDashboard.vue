@@ -43,6 +43,9 @@
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                     Duration
                   </th>
+                  <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                    Validation
+                  </th>
 
                   <th scope="col" class="relative py-3.5 px-4">
                     <span class="sr-only">Actions</span>
@@ -72,6 +75,11 @@
                     </div>
                   </td>
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{ item.loan.duration }} months</td>
+                  <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap flex justify-evenly mt-2 ">
+                    <div class="border rounded-xl bg-red-500 w-1/5 h-4" ></div>
+                    <div class="border rounded-xl bg-red-500 w-1/5 h-4" ></div>
+                    <div class="border rounded-xl bg-red-500 w-1/5 h-4" ></div>
+                  </td>
                   <td class="px-4 py-4 text-sm whitespace-nowrap">
                     <div class="flex items-center gap-x-6">
                       <router-link class="text-gray-500 transition-colors duration-200 focus:outline-none rounded border p-2 px-6" :to="{ name: 'DocumentValidation', params: { id: item.loan.userId } }">View Document</router-link>
@@ -113,12 +121,13 @@ export default {
         filterRef: true,
         filterWai: true,
         filterAcc: true,
-        filtered: []
+        filtered: [],
+
     }
   },
 
 
-  created() {
+  async created() {
     const token = localStorage.getItem('token');
 
     axios.get('http://localhost:3000/api/loan', {headers: {Authorization: 'Bearer ' + token }})
@@ -131,6 +140,8 @@ export default {
         })
     
     console.log(this.loans)
+
+
         
   },
 
@@ -148,18 +159,13 @@ export default {
         }
       }
       this.filtered = newLoans;
-    }
-
-    
     },
+
+
+
+
+  },
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-
-
-    
-</style>
 
