@@ -44,6 +44,9 @@ const userSchema = new Schema({
         required: true,
         minlength: 6
     },
+    pp: {
+        type: String
+    },
     authTokens: [{
         authToken: {
             type: String,

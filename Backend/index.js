@@ -23,6 +23,7 @@ database.once('connected', () => {
 const multer = require('multer');
 const path = require('path');
 const upload = multer({ dest: 'uploads/' }); // you will need to use this in your routes file
+const uploadpp = multer({ dest: 'pp/' }); // you will need to use this in your routes file
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use('/api', cors(), routes)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // this line serves the files as static files from '/uploads' route
+app.use('/pp', express.static(path.join(__dirname, 'pp'))); // this line serves the files as static files from '/uploads' route
 
 app.listen(3000, () => {
     console.log(`Server Started at ${3000}`)

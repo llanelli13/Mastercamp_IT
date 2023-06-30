@@ -8,6 +8,7 @@
 
         <div class="w-full p-6 bg-myBlue md:flex md:items-center rounded-2xl md:bg-transparent md:p-0 lg:px-12 md:justify-evenly">
           <FilePond
+              v-if="!this.$parent.$parent.userinfo.pp"
               class="aspect-ratio-1/1 w-40 h-40 md:w-60 md:h-60 lg:w-80 lg:h-80"
               name="filepond"
               label-idle="Drag & Drop your picture or <span class='filepond--label-action'>Browse</span>"
@@ -19,35 +20,44 @@
               style-load-indicator-position="center bottom"
               style-button-remove-item-position="center bottom"
               accepted-file-types="image/png, image/jpeg, image/gif"
+              :server="{
+                url: `http://localhost:3000/api/ppupload/${this.$parent.$parent.userinfo._id}`,
+                process: {
+                  headers: {
+                    'Authorization': `Bearer ${token}`
+                  }
+                }
+              }"
           />
+          <img class="aspect-ratio-1/1 w-40 h-40 md:w-60 md:h-60 lg:w-80 lg:h-80 " style="border-radius: 100%;" v-else :src="this.$parent.$parent.userinfo.pp" alt="">
 
           <div class="mt-2 md:mx-6 flex items-center">
             <div class="h-2/5 mr-10 py-4">
               <div class="h-1/3 m-2">
                 <label for="username" class="block text-xs  sm:text-sm text-black">Last Name</label>
-                <input type="text" :placeholder="userinfo.lastName" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+                <input type="text" :value="this.$parent.$parent.userinfo.lastName" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
                 <label for="username" class="block text-xs sm:text-sm text-black">First Name</label>
-                <input type="text" :placeholder="userinfo.firstName" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+                <input type="text" :value="this.$parent.$parent.userinfo.firstName" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
                 <label for="username" class="block text-xs sm:text-sm text-black">Phone Number</label>
-                <input type="text" :placeholder="userinfo.phoneNumber" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+                <input type="text" :value="this.$parent.$parent.userinfo.phoneNumber" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
             </div>
             <div class="h-2/5 ml-10">
               <div class="h-1/3 m-2">
                 <label for="username" class="block text-xs sm:text-sm text-black">Email</label>
-                <input type="text" :placeholder="userinfo.email" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+                <input type="text" :value="this.$parent.$parent.userinfo.email" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
                 <label for="username" class="block text-xs sm:text-sm text-black">Birthdate</label>
-                <input type="text" :placeholder="userinfo.birthDate" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+                <input type="text" :value="this.$parent.$parent.userinfo.birthday" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               <div class="h-1/3 m-2">
                 <label for="username" class="block text-xs sm:text-sm text-black">Gender</label>
-                <input type="text" :placeholder="userinfo.gender" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+                <input type="text" :value="this.$parent.$parent.userinfo.gender" class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
               </div>
               
             </div>
@@ -116,12 +126,14 @@ export default {
   data () {
     return {
       userinfo : null,
-        
+      token: ''
+
     }
   },
   created(){
     this.userinfo = this.$parent.$parent.userinfo
     console.log(this.userinfo)
+    this.token = localStorage.getItem("token")
 
   }
   ,

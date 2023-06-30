@@ -7,7 +7,7 @@
           class="w-1/3 text-center mx-auto mt-2"
           name="identity"
           label-idle="Drop files here or browse..."
-          allow-multiple="true"
+          :allow-multiple="false"
           accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           :server="{
             url: 'http://localhost:3000/api/upload/id',
@@ -25,7 +25,7 @@
           class="w-1/3 text-center mx-auto mt-2"
           name="compte"
           label-idle="Drop files here or browse..."
-          allow-multiple="true"
+          :allow-multiple="false"
           accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           :server="{
             url: 'http://localhost:3000/api/upload/compte',
@@ -43,7 +43,7 @@
           class="w-1/3 text-center mx-auto mt-2"
           name="revenus"
           label-idle="Drop files here or browse..."
-          allow-multiple="true"
+          :allow-multiple="false"
           accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           :server="{
             url: 'http://localhost:3000/api/upload/revenus',

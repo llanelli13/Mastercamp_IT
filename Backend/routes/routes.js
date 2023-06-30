@@ -307,9 +307,9 @@ router.get('/loan/user/:id', authentification, async (req, res) => {
 
 
 // --------------- [ REQUEST To upload and get a file ] -----------------
-
 const multer = require('multer');
 const path = require('path');
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -320,7 +320,17 @@ const storage = multer.diskStorage({
   }
 })
 
+const storagepp = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'pp/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) // Append extension
+  }
+})
+
 let upload = multer({ storage: storage }).any();
+let uploadpp = multer({ storage: storagepp }).any();
 
 router.post('/upload/:type', upload, authentification, async (req, res) => {
   try {
@@ -341,6 +351,33 @@ router.post('/upload/:type', upload, authentification, async (req, res) => {
 
     // Save the document
     await document.save();
+
+    res.json({ link: fileLink });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to upload file' });
+  }
+});
+
+router.post('/ppupload/:id', uploadpp, authentification, async (req, res) => {
+  try {
+
+    const id = req.params.id;
+
+    const user = await User.findOne({ _id: id });
+
+
+
+    // Access the uploaded file using req.files
+    const uploadedFile = req.files[0];
+
+    // Assuming you have a publicly accessible directory 'public/pp'
+    const fileLink = `http://localhost:3000/pp/${uploadedFile.filename}`;
+
+    user.pp = fileLink;
+
+    await user.save()
+
 
     res.json({ link: fileLink });
   } catch (error) {
