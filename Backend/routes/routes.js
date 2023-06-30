@@ -360,13 +360,32 @@ router.get('/file/:user/:name', authentification, async (req, res) => {
       return res.status(404).json({ error: 'Document not found' });
     }
 
-
-    res.send(document.documentLink);
+    res.json({ link: document.documentLink, validation:  document.validation});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to retrieve file' });
   }
 });
+
+router.post('/fileStatus/', authentification, async (req, res) => {
+  try {
+    const { ID, Bool } = req.body;  // Get ID and Bool from request body
+
+    const document = await Document.findByIdAndUpdate(ID, { validation: Bool }, { new: true });
+    
+    if (!document) {
+      return res.status(404).json({ error: 'Document not found' });
+    }
+
+    return res.status(200).json(document);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update file' });
+  }
+});
+
+
 // --------------- [ Messagerie ] -----------------
 
 

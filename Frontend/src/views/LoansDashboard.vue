@@ -74,9 +74,8 @@
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{ item.loan.duration }} months</td>
                   <td class="px-4 py-4 text-sm whitespace-nowrap">
                     <div class="flex items-center gap-x-6">
-                      <button class="text-gray-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none rounded border p-2 px-6">
-                        View
-                      </button>
+                      <router-link class="text-gray-500 transition-colors duration-200 focus:outline-none rounded border p-2 px-6" :to="{ name: 'DocumentValidation', params: { id: item.loan.userId } }">View Document</router-link>
+
                     </div>
                   </td>
                   

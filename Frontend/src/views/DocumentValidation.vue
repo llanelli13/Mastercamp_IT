@@ -256,19 +256,23 @@ export default {
   },
   methods: {},
   async created() {
-    const response = await this.$parent.$parent.getDocuments();
+    if(!this.$route.params.id){
+      this.$router.push("/")
+      return
+    }
+    const response = await this.$parent.$parent.getDocuments(this.$route.params.id);
     this.pdfSource = response;
-    this.documentToShow = this.pdfSource.id;
+    this.documentToShow = this.pdfSource.id.link;
 
   },
   watch: {
     selected: function (newSelectedValue) {
       if (newSelectedValue === 1) {
-        this.documentToShow = this.pdfSource.id;
+        this.documentToShow = this.pdfSource.id.link;
       } else if (newSelectedValue === 2) {
-        this.documentToShow = this.pdfSource.compte;
+        this.documentToShow = this.pdfSource.compte.link;
       } else if (newSelectedValue === 3) {
-        this.documentToShow = this.pdfSource.revenus;
+        this.documentToShow = this.pdfSource.revenus.link;
       }
     },
   },

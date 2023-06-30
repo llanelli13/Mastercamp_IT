@@ -15,6 +15,10 @@ const documentSchema = new Schema({
     documentLink: {
         type: String,
         required: true
+    },
+    validation: {
+        type: Boolean,
+        default: false
     }
 });
 

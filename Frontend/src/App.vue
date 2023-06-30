@@ -57,7 +57,7 @@ export default {
       })
     },
 
-    async getDocuments() {
+    async getDocuments(id) {
       await this.waitingForUser();
       const token = localStorage.getItem('token');
 
@@ -68,7 +68,7 @@ export default {
       };
 
       const requests = [
-        axios.get(`http://localhost:3000/api/file/${this.userinfo._id}/id`, {headers: {Authorization: 'Bearer ' + token }})
+        axios.get(`http://localhost:3000/api/file/${id}/id`, {headers: {Authorization: 'Bearer ' + token }})
             .then(response => {
               pdfSource.id = response.data;
             })
@@ -77,7 +77,7 @@ export default {
               pdfSource.id = 'none';
             }),
 
-        axios.get(`http://localhost:3000/api/file/${this.userinfo._id}/compte`, {headers: {Authorization: 'Bearer ' + token }})
+        axios.get(`http://localhost:3000/api/file/${id}/compte`, {headers: {Authorization: 'Bearer ' + token }})
             .then(response => {
               pdfSource.compte = response.data;
             })
@@ -86,7 +86,7 @@ export default {
               pdfSource.compte = 'none';
             }),
 
-        axios.get(`http://localhost:3000/api/file/${this.userinfo._id}/revenus`, {headers: {Authorization: 'Bearer ' + token }})
+        axios.get(`http://localhost:3000/api/file/${id}/revenus`, {headers: {Authorization: 'Bearer ' + token }})
             .then(response => {
               pdfSource.revenus = response.data;
             })

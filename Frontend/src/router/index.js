@@ -34,7 +34,7 @@ const routes = [
     }
     ,
     {
-        path: '/documentValidation',
+        path: '/documentValidation/:id',
         name : 'DocumentValidation',
         component: DocumentValidation
     }
