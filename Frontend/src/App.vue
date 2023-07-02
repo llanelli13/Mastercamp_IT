@@ -167,5 +167,20 @@ body{
   min-height : 100vh;
 }
 
+/* This will hide the scrollbar for Chrome, Safari and Opera */
+.your-div-class::-webkit-scrollbar {
+    display: none;
+}
+
+/* This will hide the scrollbar for IE and Edge */
+.your-div-class {
+    -ms-overflow-style: none;
+}
+
+/* This will hide the scrollbar for Firefox */
+.your-div-class {
+    scrollbar-width: none;
+}
+
 
 </style>

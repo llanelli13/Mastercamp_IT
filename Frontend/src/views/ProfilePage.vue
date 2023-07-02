@@ -152,8 +152,8 @@
                     <div class="border rounded-xl bg-red-500 h-4 p-auto aspect-square	" :class="{'bg-green-500': l.loanObject.validation[1], 'bg-red-500': !l.loanObject.validation[1]}"></div>
                     <div class="border rounded-xl bg-red-500 h-4 p-auto aspect-square	" :class="{'bg-green-500': l.loanObject.validation[2], 'bg-red-500': !l.loanObject.validation[2]}"></div>
                   </td>
-                  <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                    <svg class="h-6 cursor-pointer" fill="#000000" width="64px" height="64px" viewBox="0 0 1920.00 1920.00" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="19.2"></g><g id="SVGRepo_iconCarrier"> <path d="M0 1694.235h1920V226H0v1468.235ZM112.941 376.664V338.94H1807.06v37.723L960 1111.233l-847.059-734.57ZM1807.06 526.198v950.513l-351.134-438.89-88.32 70.475 378.353 472.998H174.042l378.353-472.998-88.32-70.475-351.134 438.89V526.198L960 1260.768l847.059-734.57Z" fill-rule="evenodd"></path> </g></svg>                  </td>  
+                  <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap" >
+                    <svg v-on:click="this.$router.push(`/messages/${l.loanObject._id}`)" class="h-6 cursor-pointer" fill="#000000" width="64px" height="64px" viewBox="0 0 1920.00 1920.00" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="19.2"></g><g id="SVGRepo_iconCarrier"> <path d="M0 1694.235h1920V226H0v1468.235ZM112.941 376.664V338.94H1807.06v37.723L960 1111.233l-847.059-734.57ZM1807.06 526.198v950.513l-351.134-438.89-88.32 70.475 378.353 472.998H174.042l378.353-472.998-88.32-70.475-351.134 438.89V526.198L960 1260.768l847.059-734.57Z" fill-rule="evenodd"></path> </g></svg>                  </td>  
                 </tr>
               </tbody>
             </table>

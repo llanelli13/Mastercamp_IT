@@ -1,8 +1,8 @@
 <template>
-  <div class="relative flex flex-col pt-16 h-full w-full my-auto bg-gray-200 rounded-lg shadow-lg ">
+  <div class="relative flex flex-col pt-16 h-full w-full my-auto rounded-lg shadow-lg ">
     <!-- Header -->
-    <div class="w-full h-1/6 bg-gray-400 shadow-md">
-      <div class="w-full h-full flex justify-between items-center">
+    <div class="w-full h-20 border shadow-md">
+      <div class="w-full h-full flex justify-between items-center bg-gray-100">
         <div class="w-2/6 h-full flex justify-center items-center ">
           <strong>Purpose :</strong>
           <p class="ml-2 text-ellipsis overflow-hidden w-3/4">{{loanInfo.purpose}}</p>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <!-- Body -->
-    <div class="w-full h-4/6 flex flex-col px-10 overflow-y-scroll pb-12 " style="flex-direction: column-reverse;">
+    <div class="your-div-class w-full h-5/6 flex flex-col px-10 overflow-y-scroll pb-12 bg-blue-200 scrollbar-hide" style="flex-direction: column-reverse; overflow-x: hidden; ">
       <MessageComp v-for="item in messages" :key="item" :msg="item"  />
 
     </div>
