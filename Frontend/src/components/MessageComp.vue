@@ -1,12 +1,12 @@
 <template>
   <div class="w-full  max-w-2xl px-8 py-4 mt-16 bg-white rounded-lg shadow-lg " :class = "{'place-self-end' : side, 'place-self-start ' : !side}">
     <div class="flex -mt-16 " :class = "{'justify-end' : side ,'justify-start' : !side}">
-      <img class="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" alt="Testimonial avatar" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80">
+      <img class="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" :src="msg.senderId.pp">
     </div>
 
-    <p class="mt-2 text-sm text-gray-600 text-justify">Oui</p>
+    <p class="mt-2 text-sm text-gray-600 text-justify">{{msg.content}}</p>
     <div class="flex mt-4" :class = "{'justify-start' : side, 'justify-end ' : !side}">
-      <div  class="text-lg font-medium text-blue-600 " tabindex="0" role="link">John Doe</div>
+      <div  class="text-lg font-medium text-blue-600 " tabindex="0" role="link">{{msg.senderId.firstName}} {{msg.senderId.lastName}}</div>
     </div>
 
   </div>
@@ -21,15 +21,22 @@ export default {
       required: true
     },
 
-    side : {
-      type: Boolean,
-      required: true
-    }
 
 
 
 
   
+  },
+
+  data(){
+    return{
+      side: false
+    }
+  },
+
+  created(){
+    this.side = this.$parent.$parent.$parent.userinfo._id == this.msg.senderId._id
+    console.log("side ", this.side)
   }
 }
 </script>

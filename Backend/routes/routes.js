@@ -105,6 +105,31 @@ router.get("/user/isadmin", authentification, async (req, res) => {
     res.status(500).send();
   }
 });
+router.get("/user/getAdmins", authentification, async (req, res) => {
+  try {
+    // Query for all Admins
+    const admins = await Admin.find();
+
+    // Fetch each User document
+    const adminsWithUsers = await Promise.all(admins.map(async (admin) => {
+      if (admin.adminUser.toString() !== req.user._id.toString()) {
+        const user = await User.findById(admin.adminUser);
+        return { user };
+      }
+    }));
+
+    // Filter out undefined values (admins that match the current user)
+    const filteredAdminsWithUsers = adminsWithUsers.filter(Boolean);
+    
+    // Send the admins
+    res.json(filteredAdminsWithUsers);
+  } catch (err) {
+    console.log("Error: ", err)
+    res.status(500).send();
+  }
+});
+
+
 
 
 router.post("/user/register", async (req, res) => {
@@ -475,12 +500,11 @@ router.post('/fileStatus/', authentification, async (req, res) => {
 
 router.post('/message/send', authentification, async (req, res) => {
   try {
-    const { receiverId, content, loanId } = req.body;
+    const { content, loanId } = req.body;
 
     // Create a new message document
     const message = new Messages({
       senderId: req.user._id,  // Use authenticated user's ID as the sender
-      receiverId,
       loanId,
       content
     });
@@ -497,19 +521,19 @@ router.post('/message/send', authentification, async (req, res) => {
 
 router.get('/messages/:loanId', authentification, async (req, res) => {
   try {
-    const userId = req.params.userId;
-    
-    // Find messages between the authenticated user and the specified user
-    const messages = await Messages.find({ loanId: req.params.loanId})
+    // Find messages between the authenticated user and the specified loan
+    const messages = await Messages.find({ loanId: req.params.loanId })
+      .populate('senderId') // This line populates the senderId field
       .sort({ timestamp: -1 }) // Sort by timestamp in descending order
       .exec();
 
-    res.json(messages);
+    res.status(200).json(messages);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to retrieve messages' });
   }
 });
+
 
 // ----------------------- [ get banks ] ------------------------------
 

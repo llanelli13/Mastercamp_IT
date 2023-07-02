@@ -35,13 +35,11 @@
                 className="block w-full h-4/6 placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
             >
               <option value="">Please select</option>
-              <option value="JM">John Mayer</option>
-              <option value="SRV">Stevie Ray Vaughn</option>
-              <option value="JH">Jimi Hendrix</option>
-              <option value="BBK">B.B King</option>
-              <option value="AK">Albert King</option>
-              <option value="BG">Buddy Guy</option>
-              <option value="EC">Eric Clapton</option>
+              <option v-for="b in filteredBrokers" :key='b.user._id' :value="b.user._id">
+                  {{b.user.firstName}} {{b.user.lastName}}
+              </option>
+             
+              
             </select>
           </div>
         </div>
@@ -58,12 +56,38 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 export default {
+  
   name: 'LoanApplication',
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      brokers: []
+    };
+  },
+  computed: {
+      filteredBrokers() {
+        return this.brokers.filter(b => 
+          this.$parent.$parent.userinfo.bank == b.user.bank
+        );
+      }
+    },
+
+  created(){
+    let token = localStorage.getItem("token")
+
+
+    axios.get('http://localhost:3000/api/user/getAdmins', {headers: {Authorization: 'Bearer ' + token }})
+      .then(response => {
+        this.brokers = response.data;
+       })
+        .catch(error => {
+          console.log(error)
+        })
+    
   },
   methods: {},
 };
