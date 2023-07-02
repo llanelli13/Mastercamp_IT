@@ -17,6 +17,11 @@ const messageSchema = new Schema({
         type: String,
         required: true
     },
+    loanId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Loan',
+        required: true
+    },
     timestamp: {
         type: Date,
         default: Date.now

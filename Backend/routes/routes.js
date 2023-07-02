@@ -298,6 +298,42 @@ router.get('/loan', authentification, async (req, res) => {
   }
 });
 
+router.get('/myloan', authentification, async (req, res) => {
+  try {
+    const loans = await Loan.find({ userId: req.user._id });
+  
+
+    if(!loans){
+      res.status(500).json({ error: '0 loan found' });
+    }
+
+    // Map through the loans array and fetch user details for each loan
+    const loansWithUserDetails = await Promise.all(
+      loans.map(async (loan) => {
+
+        // Check for each document type
+        const idDocumentExists = !!await Document.exists({ userId: req.user._id, documentName: 'id' });
+        const compteDocumentExists = !!await Document.exists({ userId: req.user._id, documentName: 'compte' });
+        const revenueDocumentExists = !!await Document.exists({ userId: req.user._id, documentName: 'revenue' });
+
+        // Convert Mongoose document to JS object and add validation array
+        let loanObject = loan.toObject();
+        loanObject.validation = [idDocumentExists, compteDocumentExists, revenueDocumentExists];
+
+        return {
+          loanObject,
+        };
+      })
+    );
+
+    res.json(loansWithUserDetails);
+  } catch (error) {
+    console.log("eee")
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch loans' });
+  }
+});
+
 router.get('/loan/user/:id', authentification, async (req, res) => {
   try {
     const userId = req.params.id;
@@ -439,12 +475,13 @@ router.post('/fileStatus/', authentification, async (req, res) => {
 
 router.post('/message/send', authentification, async (req, res) => {
   try {
-    const { receiverId, content } = req.body;
+    const { receiverId, content, loanId } = req.body;
 
     // Create a new message document
     const message = new Messages({
       senderId: req.user._id,  // Use authenticated user's ID as the sender
       receiverId,
+      loanId,
       content
     });
 
@@ -458,17 +495,12 @@ router.post('/message/send', authentification, async (req, res) => {
   }
 });
 
-router.get('/messages/:userId', authentification, async (req, res) => {
+router.get('/messages/:loanId', authentification, async (req, res) => {
   try {
     const userId = req.params.userId;
     
     // Find messages between the authenticated user and the specified user
-    const messages = await Messages.find({
-      $or: [
-        { senderId: req.user._id, receiverId: userId },
-        { senderId: userId, receiverId: req.user._id }
-      ]
-    })
+    const messages = await Messages.find({ loanId: req.params.loanId})
       .sort({ timestamp: -1 }) // Sort by timestamp in descending order
       .exec();
 

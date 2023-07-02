@@ -28,7 +28,7 @@
                     </div>
                   </th>
 
-                  <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                  <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500" >
                     Purpose
                   </th>
 
@@ -38,6 +38,10 @@
 
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                     Customer
+                  </th>
+
+                  <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                    Amount
                   </th>
 
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
@@ -61,7 +65,7 @@
                       <span>{{ item.loan.askedDate }}</span>
                     </div>
                   </td>
-                  <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{ item.loan.purpose }}</td>
+                  <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap" ><p class="w-28 overflow-hidden text-ellipsis">{{ item.loan.purpose }}</p></td>
                   <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                     <StatusComp :status="item.loan.status"></StatusComp>
                   </td>
@@ -74,11 +78,12 @@
                       </div>
                     </div>
                   </td>
+                  <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{ item.loan.amount }} €</td>
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{ item.loan.duration }} months</td>
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap flex justify-evenly mt-2 ">
-                    <div class="border rounded-xl bg-red-500 w-1/5 h-4" ></div>
-                    <div class="border rounded-xl bg-red-500 w-1/5 h-4" ></div>
-                    <div class="border rounded-xl bg-red-500 w-1/5 h-4" ></div>
+                    <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[0], 'bg-red-500': !item.loan.validation[0]}" ></div>
+                    <div class="border rounded-xl bg-red-500 h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[1], 'bg-red-500': !item.loan.validation[1]}"></div>
+                    <div class="border rounded-xl bg-red-500 h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[2], 'bg-red-500': !item.loan.validation[2]}"></div>
                   </td>
                   <td class="px-4 py-4 text-sm whitespace-nowrap">
                     <div class="flex items-center gap-x-6">
