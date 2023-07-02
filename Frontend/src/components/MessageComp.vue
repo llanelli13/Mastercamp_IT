@@ -1,12 +1,14 @@
 <template>
-  <div class="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg ">
-    <h2 class="mt-2 text-xl font-semibold text-gray-800 dark:text-white md:mt-0">Design Tools</h2>
-
-    <p class="mt-2 text-sm text-gray-600 dark:text-gray-200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores deserunt ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis pariatur minus consequuntur!</p>
-
-    <div class="flex justify-end mt-4">
-      <a href="#" class="text-lg font-medium text-blue-600 dark:text-blue-300" tabindex="0" role="link">John Doe</a>
+  <div class="w-full  max-w-2xl px-8 py-4 mt-16 bg-white rounded-lg shadow-lg " :class = "{'place-self-end' : side, 'place-self-start ' : !side}">
+    <div class="flex -mt-16 " :class = "{'justify-end' : side ,'justify-start' : !side}">
+      <img class="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" alt="Testimonial avatar" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80">
     </div>
+
+    <p class="mt-2 text-sm text-gray-600 text-justify">Oui</p>
+    <div class="flex mt-4" :class = "{'justify-start' : side, 'justify-end ' : !side}">
+      <div  class="text-lg font-medium text-blue-600 " tabindex="0" role="link">John Doe</div>
+    </div>
+
   </div>
 </template>
 
@@ -14,6 +16,19 @@
 export default {
   name: 'MessageComp',
   props: {
+    msg : {
+      type: String,
+      required: true
+    },
+
+    side : {
+      type: Boolean,
+      required: true
+    }
+
+
+
+
   
   }
 }

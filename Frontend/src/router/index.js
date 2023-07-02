@@ -7,6 +7,7 @@ import LoansDashboard from '../views/LoansDashboard.vue'
 import DocumentValidation from '../views/DocumentValidation.vue'
 import LoanApplication from "@/views/LoanApplication.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
+import MessageView from "@/views/MessageView.vue";
 
 
 const routes = [
@@ -49,6 +50,12 @@ const routes = [
         path: '/profile',
         name : 'Profilepage',
         component: ProfilePage
+    }
+    ,
+    {
+        path: '/messages',
+        name : 'MessageView',
+        component: MessageView
     }
 ]
 
