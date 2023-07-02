@@ -29,7 +29,18 @@
                 }
               }"
           />
-          <img class="aspect-ratio-1/1 w-40 h-40 md:w-60 md:h-60 lg:w-80 lg:h-80 " style="border-radius: 100%;" v-else :src="this.$parent.$parent.userinfo.pp" alt="">
+          <div class="relative aspect-ratio-1/1 w-40 h-40 md:w-60 md:h-60 lg:w-80 lg:h-80" @mouseenter="hover = true" v-else>
+
+            <img class="w-full h-full object-cover transition-all duration-500 ease-in-out rounded-full " :class="{'blur':hover}" :src="this.$parent.$parent.userinfo.pp"/>
+
+            <div
+                v-if="hover" class="absolute inset-0 flex items-center justify-center cursor-pointer rounded-full transition-all bg-black bg-opacity-50 duration-500 ease-in-out"
+                @mouseleave="hover = false"
+                @click="this.$parent.$parent.userinfo.pp = null">
+              <p class="text-white text-lg">Edit Pic</p>
+            </div>
+          </div>
+
 
           <div class="mt-2 md:mx-6 flex items-center">
             <div class="h-2/5 mr-10 py-4">
@@ -203,6 +214,7 @@ export default {
       userinfo : null,
       token: '',
       loans: [],
+      hover : false,
 
     }
   },
