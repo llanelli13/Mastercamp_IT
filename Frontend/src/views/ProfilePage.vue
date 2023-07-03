@@ -3,7 +3,7 @@
     <div class="max-w-6xl px-6 py-10 mt-20 mx-auto">
 
       <main class="relative z-20 w-full mt-8 md:flex md:items-center xl:mt-12">
-        <div class="absolute w-full bg-myBlue -z-10 md:h-96 rounded-2xl"></div>
+        <div class="absolute w-full bg-myBlue -z-10 md:h-96 rounded-2xl shadow-xl"></div>
 
 
         <div class="w-full p-6 bg-myBlue md:flex md:items-center rounded-2xl md:bg-transparent md:p-0 lg:px-12 md:justify-evenly">

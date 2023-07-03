@@ -11,7 +11,7 @@
 
     <!-- Drop documents 1-->
     <div v-if="this.loan.validation && this.loan.validation[0] === 0" class="cursor-pointer justify-center">
-      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Pièce d'identité</h3>
+      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">ID</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
           name="identity"
@@ -56,7 +56,7 @@
 
     <!-- Drop documents 2-->
     <div v-if="this.loan.validation && this.loan.validation[1] === 0" class="cursor-pointer justify-center">
-      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Relevé de compte (3 derniers mois)</h3>
+      <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Statement of account</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
           name="compte"
@@ -85,7 +85,7 @@
           <strong>Status: {{ this.loan.validation[1] === 0 ? 'Refused' : (this.loan.validation[1] === 1 ? 'In Progress' : 'Validated') }}</strong>
         </div>
         <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
-          File : ID
+          File : Statement of account
         </div>
         <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
         </div>
@@ -130,7 +130,7 @@
           <strong>Status: {{ this.loan.validation[2] === 0 ? 'Refused' : (this.loan.validation[2] === 1 ? 'In Progress' : 'Validated') }}</strong>
         </div>
         <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
-          File : ID
+          File : Proof of income
         </div>
         <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
         </div>
