@@ -1,7 +1,16 @@
 <template>
   <div class="w-full h-screen" style="background-color: rgba(10,172,226,0.8)">
+    <!--Header-->
     <h1 class="text-3xl font-extrabold sm:text-5xl pt-20 w-full text-center text-blue-950">Drop Documents</h1>
-    <div class="cursor-pointer justify-center">
+    <!-- Informations about the loan -->
+    <div class="w-full text-center flex justify-evenly mt-4" >
+      <p>Purpose : {{this.loan.purpose}} </p>
+      <p>Amount : {{this.loan.amount}} €</p>
+      <p>Duration : {{this.loan.duration}} months</p>
+    </div>
+
+    <!-- Drop documents 1-->
+    <div v-if="this.loan.validation && this.loan.validation[0] === 0" class="cursor-pointer justify-center">
       <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Pièce d'identité</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
@@ -19,7 +28,31 @@
           }"
       />
     </div>
-    <div class="cursor-pointer justify-center">
+
+    <div v-else class=" w-full mt-16 h-1/6 flex flex-col justify-center items-center rounded-lg">
+      <div class="relative w-2/3 sm:w-1/3 h-1/3 sm:flex text-center bg-gray-200 rounded-t-lg">
+        <button class="absolute top-2 right-2 w-8 h-8  p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[0] === 0 ,'text-yellow-500' : this.loan.validation[0] === 1,'text-green-500' : this.loan.validation[0] === 2 }">
+          Status: {{ this.loan.validation[0] === 0 ? 'Refused' : (this.loan.validation[0] === 1 ? 'In Progress' : 'Validated') }}
+        </div>
+        <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
+          File : ID
+        </div>
+        <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
+        </div>
+
+      </div>
+      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 flex justify-center items-center rounded-b-lg shadow-lg">
+        Commentaire : Message de validation ou non
+      </div>
+    </div>
+
+    <!-- Drop documents 2-->
+    <div v-if="this.loan.validation && this.loan.validation[1] === 0" class="cursor-pointer justify-center">
       <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Relevé de compte (3 derniers mois)</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
@@ -37,7 +70,31 @@
           }"
       />
     </div>
-    <div class="cursor-pointer justify-center">
+
+    <div v-else class=" w-full mt-16 h-1/6 flex flex-col justify-center items-center rounded-lg">
+      <div class="relative w-2/3 sm:w-1/3 h-1/3 sm:flex text-center bg-gray-200 rounded-t-lg">
+        <button class="absolute top-2 right-2 w-8 h-8  p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[1] === 0 ,'text-yellow-500' : this.loan.validation[1] === 1,'text-green-500' : this.loan.validation[1] === 2 }">
+          Status: {{ this.loan.validation[1] === 0 ? 'Refused' : (this.loan.validation[1] === 1 ? 'In Progress' : 'Validated') }}
+        </div>
+        <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
+          File : ID
+        </div>
+        <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
+        </div>
+
+      </div>
+      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 flex justify-center items-center rounded-b-lg shadow-lg">
+        Commentaire : Message de validation ou non
+      </div>
+    </div>
+
+    <!-- Drop documents 3-->
+    <div v-if="this.loan.validation && this.loan.validation[2] === 0" class="cursor-pointer justify-center">
       <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Justificatif de revenus</h3>
       <FilePond
           class="w-1/3 text-center mx-auto mt-2"
@@ -54,6 +111,28 @@
             }
           }"
       />
+    </div>
+
+    <div v-else class=" w-full mt-16 h-1/6 flex flex-col justify-center items-center rounded-lg">
+      <div class="relative w-2/3 sm:w-1/3 h-1/3 sm:flex text-center bg-gray-200 rounded-t-lg">
+        <button class="absolute top-2 right-2 w-8 h-8  p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[2] === 0 ,'text-yellow-500' : this.loan.validation[2] === 1,'text-green-500' : this.loan.validation[2] === 2 }">
+          Status: {{ this.loan.validation[2] === 0 ? 'Refused' : (this.loan.validation[2] === 1 ? 'In Progress' : 'Validated') }}
+        </div>
+        <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
+          File : ID
+        </div>
+        <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
+        </div>
+
+      </div>
+      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 flex justify-center items-center rounded-b-lg shadow-lg">
+        Commentaire : Message de validation ou non
+      </div>
     </div>
   </div>
 </template>
@@ -76,26 +155,32 @@ export default {
   data () {
     return {
         token: localStorage.getItem('token'),
-        loan: ''
+        loan: {
+          validation : []
+        },
+      document : [],
+
     }
   },
 
  
-  created() {
-    axios.get('http://localhost:3000/api/loan/' + this.$route.params.id + '/', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token') }})
+     created() {
+     axios.get('http://localhost:3000/api/loan/' + this.$route.params.id + '/', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token') }})
       .then(response => {
         this.loan = response.data;
+        console.log(this.loan)
        })
         .catch(error => {
           console.log(error)
         })
+
+
+
   },
 
   
   methods: {
-        
- 
-    
+
     },
 }
 </script>

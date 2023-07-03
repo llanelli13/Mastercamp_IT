@@ -10,8 +10,7 @@ Thumbs.db
 /dist/
 
 # Ignorer les fichiers de dépendances et de modules
-Frontend/node_modules/
-Backend/node_modules/
+**/node_modules
 
 # Ignorer les fichiers de journalisation
 npm-debug.log*
