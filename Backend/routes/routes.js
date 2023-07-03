@@ -380,11 +380,13 @@ router.get('/loan', authentification, async (req, res) => {
   }
 });
 
+
+
+
 router.get('/myloan', authentification, async (req, res) => {
   try {
-    const loans = await Loan.find({ userId: req.user._id });
+    const loans = await Loan.find({ userId: req.user._id }).populate('broker', 'firstName lastName -_id');
   
-
     if(!loans){
       res.status(500).json({ error: '0 loan found' });
     }
@@ -392,7 +394,6 @@ router.get('/myloan', authentification, async (req, res) => {
     // Map through the loans array and fetch user details for each loan
     const loansWithUserDetails = await Promise.all(
       loans.map(async (loan) => {
-
         let idDoc = 0;
         if (await Document.exists({ loanId: loan._id, documentName: 'id' })) {
           const idDocDocument = await Document.findOne({ loanId: loan._id, documentName: 'id' });
@@ -422,13 +423,17 @@ router.get('/myloan', authentification, async (req, res) => {
             idRevenus = 1;
           }
         }
+        
         // Convert Mongoose document to JS object and add validation array
         let loanObject = loan.toObject();
         loanObject.validation = [idDoc, idCompte, idRevenus];
 
-        return {
-          loanObject,
-        };
+        // Concatenate broker's firstName and lastName
+        if (loanObject.broker) {
+          loanObject.broker = loanObject.broker.firstName + ' ' + loanObject.broker.lastName;
+        }
+
+        return loanObject;
       })
     );
 

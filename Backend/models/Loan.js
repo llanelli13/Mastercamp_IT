@@ -32,7 +32,8 @@ const loanSchema = new Schema({
         required: true
     },
     broker: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     status: {

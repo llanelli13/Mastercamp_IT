@@ -37,7 +37,7 @@
           </svg>
         </button>
         <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[0] === 0 ,'text-yellow-500' : this.loan.validation[0] === 1,'text-green-500' : this.loan.validation[0] === 2 }">
-          Status: {{ this.loan.validation[0] === 0 ? 'Refused' : (this.loan.validation[0] === 1 ? 'In Progress' : 'Validated') }}
+          <strong>Status: {{ this.loan.validation[0] === 0 ? 'Refused' : (this.loan.validation[0] === 1 ? 'In Progress' : 'Validated') }}</strong>
         </div>
         <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
           File : ID
@@ -46,8 +46,11 @@
         </div>
 
       </div>
-      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 flex justify-center items-center rounded-b-lg shadow-lg">
-        Commentaire : Message de validation ou non
+      <div class="w-2/3 sm:w-1/3 bg-gray-200 px-1">
+        Commentaire :
+      </div>
+      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 rounded-b-lg shadow-lg text-sm px-1">
+        Message de validation ou non
       </div>
     </div>
 
@@ -79,7 +82,7 @@
           </svg>
         </button>
         <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[1] === 0 ,'text-yellow-500' : this.loan.validation[1] === 1,'text-green-500' : this.loan.validation[1] === 2 }">
-          Status: {{ this.loan.validation[1] === 0 ? 'Refused' : (this.loan.validation[1] === 1 ? 'In Progress' : 'Validated') }}
+          <strong>Status: {{ this.loan.validation[1] === 0 ? 'Refused' : (this.loan.validation[1] === 1 ? 'In Progress' : 'Validated') }}</strong>
         </div>
         <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
           File : ID
@@ -88,8 +91,11 @@
         </div>
 
       </div>
-      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 flex justify-center items-center rounded-b-lg shadow-lg">
-        Commentaire : Message de validation ou non
+      <div class="w-2/3 sm:w-1/3 bg-gray-200 px-1">
+        Commentaire :
+      </div>
+      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 rounded-b-lg shadow-lg text-sm px-1">
+        Message de validation ou non
       </div>
     </div>
 
@@ -121,7 +127,7 @@
           </svg>
         </button>
         <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[2] === 0 ,'text-yellow-500' : this.loan.validation[2] === 1,'text-green-500' : this.loan.validation[2] === 2 }">
-          Status: {{ this.loan.validation[2] === 0 ? 'Refused' : (this.loan.validation[2] === 1 ? 'In Progress' : 'Validated') }}
+          <strong>Status: {{ this.loan.validation[2] === 0 ? 'Refused' : (this.loan.validation[2] === 1 ? 'In Progress' : 'Validated') }}</strong>
         </div>
         <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
           File : ID
@@ -130,8 +136,11 @@
         </div>
 
       </div>
-      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 flex justify-center items-center rounded-b-lg shadow-lg">
-        Commentaire : Message de validation ou non
+      <div class="w-2/3 sm:w-1/3 bg-gray-200 px-1">
+        Commentaire :
+      </div>
+      <div class="w-2/3 sm:w-1/3 h-2/3 bg-gray-200 rounded-b-lg shadow-lg text-sm px-1">
+        Message de validation ou non
       </div>
     </div>
   </div>
