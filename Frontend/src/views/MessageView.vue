@@ -1,20 +1,20 @@
 <template>
   <div class="relative flex flex-col pt-16 h-full w-full my-auto rounded-lg shadow-lg ">
     <!-- Header -->
-    <div class="w-full h-20 border shadow-md">
-      <div class="w-full h-full flex justify-between items-center bg-gray-100">
-        <div class="w-2/6 h-full flex justify-center items-center ">
+    <div class="w-full h-12 sm:h-20 border shadow-md ">
+      <div class="w-full h-full flex justify-between items-center bg-gray-100 pl-12 sm:pl-0">
+        <div class="w-2/6 h-full sm:flex justify-center items-center text-sm sm:text-lg">
           <strong>Purpose :</strong>
-          <p class="ml-2 text-ellipsis overflow-hidden w-3/4">{{loanInfo.purpose}}</p>
+          <p class="ml-0 sm:ml-2 text-ellipsis overflow-hidden w-3/4 ">{{loanInfo.purpose}}</p>
 
         </div>
-        <div class="w-2/6 h-full flex justify-center items-center">
+        <div class="w-2/6 h-full sm:flex justify-center items-center text-sm sm:text-lg">
           <strong>Duration :</strong>
-          <p class="ml-2"> {{loanInfo.duration}} Months</p>
+          <p class="ml-0 sm:ml-2 text-ellipsis overflow-hidden w-3/4 "> {{loanInfo.duration}} Months</p>
         </div>
-        <div class="w-2/6 h-full flex justify-center items-center">
+        <div class="w-2/6 h-full sm:flex justify-center items-center text-sm sm:text-lg">
           <strong>Amount :</strong>
-          <p class="ml-2"> {{loanInfo.amount}} €</p>
+          <p class="ml-0 sm:ml-2 text-ellipsis overflow-hidden w-3/4 "> {{loanInfo.amount}} €</p>
         </div>
       </div>
     </div>

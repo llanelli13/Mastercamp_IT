@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
 const documentSchema = new Schema({
-    userId: {
+    loanId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Loan',
         required: true
     },
     documentName: {

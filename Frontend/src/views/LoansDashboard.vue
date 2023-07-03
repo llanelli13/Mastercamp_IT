@@ -81,13 +81,13 @@
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{ item.loan.amount }} €</td>
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{ item.loan.duration }} months</td>
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap flex justify-evenly mt-2 ">
-                    <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[0], 'bg-red-500': !item.loan.validation[0]}" ></div>
-                    <div class="border rounded-xl bg-red-500 h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[1], 'bg-red-500': !item.loan.validation[1]}"></div>
-                    <div class="border rounded-xl bg-red-500 h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[2], 'bg-red-500': !item.loan.validation[2]}"></div>
+                    <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[0] == 2, 'bg-yellow-500': item.loan.validation[0] == 1, 'bg-red-500': item.loan.validation[0] == 0}" ></div>
+                    <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[1] == 2, 'bg-yellow-500': item.loan.validation[1] == 1, 'bg-red-500': item.loan.validation[1] == 0}"></div>
+                    <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[2] == 2, 'bg-yellow-500': item.loan.validation[2] == 1, 'bg-red-500': item.loan.validation[2] == 0}"></div>
                   </td>
                   <td class="px-4 py-4 text-sm whitespace-nowrap">
                     <div class="flex items-center gap-x-6">
-                      <router-link class="text-gray-500 transition-colors duration-200 focus:outline-none rounded border p-2 px-6" :to="{ name: 'DocumentValidation', params: { id: item.loan.userId } }">View Document</router-link>
+                      <router-link class="text-gray-500 transition-colors duration-200 focus:outline-none rounded border p-2 px-6" :to="{ name: 'DocumentValidation', params: { id: item.loan._id } }">View Document</router-link>
 
                     </div>
                   </td>

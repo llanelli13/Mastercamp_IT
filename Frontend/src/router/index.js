@@ -23,7 +23,7 @@ const routes = [
     }
     ,
     {
-        path: '/dropDocuments',
+        path: '/dropDocuments/:id',
         name : 'DropDocuments',
         component: DropDocuments
     }

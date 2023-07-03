@@ -295,19 +295,42 @@ router.get('/loan', authentification, async (req, res) => {
 
     const loans = await Loan.find();
 
-    // Map through the loans array and fetch user details for each loan
     const loansWithUserDetails = await Promise.all(
       loans.map(async (loan) => {
         const user = await User.findOne({ _id: loan.userId });
 
-        // Check for each document type
-        const idDocumentExists = !!await Document.exists({ userId: loan.userId, documentName: 'id' });
-        const compteDocumentExists = !!await Document.exists({ userId: loan.userId, documentName: 'compte' });
-        const revenueDocumentExists = !!await Document.exists({ userId: loan.userId, documentName: 'revenue' });
+        let idDoc = 0;
+        if (await Document.exists({ loanId: loan._id, documentName: 'id' })) {
+          const idDocDocument = await Document.findOne({ loanId: loan._id, documentName: 'id' });
+          if(idDocDocument && idDocDocument.validation){
+            idDoc = 2;
+          } else {
+            idDoc = 1;
+          }
+        }
 
-        // Convert Mongoose document to JS object and add validation array
+        let idCompte = 0;
+        if (await Document.exists({ loanId: loan._id, documentName: 'compte' })) {
+          const idCompteDocument = await Document.findOne({ loanId: loan._id, documentName: 'compte' });
+          if(idCompteDocument && idCompteDocument.validation){
+            idCompte = 2;
+          } else {
+            idCompte = 1;
+          }
+        }
+
+        let idRevenus = 0;
+        if (await Document.exists({ loanId: loan._id, documentName: 'revenue' })) {
+          const idRevenusDocument = await Document.findOne({ loanId: loan._id, documentName: 'revenue' });
+          if(idRevenusDocument && idRevenusDocument.validation){
+            idRevenus = 2;
+          } else {
+            idRevenus = 1;
+          }
+        }
+
         let loanObject = loan.toObject();
-        loanObject.validation = [idDocumentExists, compteDocumentExists, revenueDocumentExists];
+        loanObject.validation = [idDoc, idCompte, idRevenus];
 
         return {
           loan: loanObject,
@@ -336,14 +359,38 @@ router.get('/myloan', authentification, async (req, res) => {
     const loansWithUserDetails = await Promise.all(
       loans.map(async (loan) => {
 
-        // Check for each document type
-        const idDocumentExists = !!await Document.exists({ userId: req.user._id, documentName: 'id' });
-        const compteDocumentExists = !!await Document.exists({ userId: req.user._id, documentName: 'compte' });
-        const revenueDocumentExists = !!await Document.exists({ userId: req.user._id, documentName: 'revenue' });
+        let idDoc = 0;
+        if (await Document.exists({ loanId: loan._id, documentName: 'id' })) {
+          const idDocDocument = await Document.findOne({ loanId: loan._id, documentName: 'id' });
+          if(idDocDocument && idDocDocument.validation){
+            idDoc = 2;
+          } else {
+            idDoc = 1;
+          }
+        }
 
+        let idCompte = 0;
+        if (await Document.exists({ loanId: loan._id, documentName: 'compte' })) {
+          const idCompteDocument = await Document.findOne({ loanId: loan._id, documentName: 'compte' });
+          if(idCompteDocument && idCompteDocument.validation){
+            idCompte = 2;
+          } else {
+            idCompte = 1;
+          }
+        }
+
+        let idRevenus = 0;
+        if (await Document.exists({ loanId: loan._id, documentName: 'revenue' })) {
+          const idRevenusDocument = await Document.findOne({ loanId: loan._id, documentName: 'revenue' });
+          if(idRevenusDocument && idRevenusDocument.validation){
+            idRevenus = 2;
+          } else {
+            idRevenus = 1;
+          }
+        }
         // Convert Mongoose document to JS object and add validation array
         let loanObject = loan.toObject();
-        loanObject.validation = [idDocumentExists, compteDocumentExists, revenueDocumentExists];
+        loanObject.validation = [idDoc, idCompte, idRevenus];
 
         return {
           loanObject,
@@ -403,7 +450,7 @@ const storagepp = multer.diskStorage({
 let upload = multer({ storage: storage }).any();
 let uploadpp = multer({ storage: storagepp }).any();
 
-router.post('/upload/:type', upload, authentification, async (req, res) => {
+router.post('/upload/:id/:type', upload, authentification, async (req, res) => {
   try {
     const admin = await Admin.findOne({ adminUser: req.user._id });
 
@@ -415,7 +462,7 @@ router.post('/upload/:type', upload, authentification, async (req, res) => {
 
     // Create a new Document
     const document = new Document({
-      userId: req.user._id, // Assuming user ID is available on req.user._id
+      loanId: req.params.id, 
       documentName: req.params.type,
       documentLink: fileLink
     });
@@ -458,12 +505,12 @@ router.post('/ppupload/:id', uploadpp, authentification, async (req, res) => {
 });
 
 
-router.get('/file/:user/:name', authentification, async (req, res) => {
+router.get('/file/:id/:name', authentification, async (req, res) => {
   try {
-    const userId = req.params.user;
+    const id = req.params.id;
     const documentName = req.params.name;
 
-    const document = await Document.findOne({ userId: userId, documentName: documentName });
+    const document = await Document.findOne({ loanId: id, documentName: documentName });
     if (!document) {
       return res.status(404).json({ error: 'Document not found' });
     }

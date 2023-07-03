@@ -8,9 +8,9 @@
           name="identity"
           label-idle="Drop files here or browse..."
           :allow-multiple="false"
-          accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          accepted-file-types="application/pdf"
           :server="{
-            url: 'http://localhost:3000/api/upload/id',
+            url: `http://localhost:3000/api/upload/${this.$route.params.id}/id`,
             process: {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -26,9 +26,9 @@
           name="compte"
           label-idle="Drop files here or browse..."
           :allow-multiple="false"
-          accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          accepted-file-types="application/pdf"
           :server="{
-            url: 'http://localhost:3000/api/upload/compte',
+            url: `http://localhost:3000/api/upload/${this.$route.params.id}/compte`,
             process: {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -44,9 +44,9 @@
           name="revenus"
           label-idle="Drop files here or browse..."
           :allow-multiple="false"
-          accepted-file-types="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          accepted-file-types="application/pdf"
           :server="{
-            url: 'http://localhost:3000/api/upload/revenus',
+            url: `http://localhost:3000/api/upload/${this.$route.params.id}/revenus`,
             process: {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -63,6 +63,7 @@ import 'filepond/dist/filepond.min.css';
 
 // Create the FilePond component
 const FilePond = vueFilePond();
+const axios = require('axios')
 export default {
   name: 'DropDocuments',
   components: {
@@ -74,12 +75,20 @@ export default {
 
   data () {
     return {
-        token: ''
+        token: localStorage.getItem('token'),
+        loan: ''
     }
   },
 
-  mounted(){
-    this.token = localStorage.getItem('token');
+ 
+  created() {
+    axios.get('http://localhost:3000/api/loan/' + this.$route.params.id + '/', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token') }})
+      .then(response => {
+        this.loan = response.data;
+       })
+        .catch(error => {
+          console.log(error)
+        })
   },
 
   
