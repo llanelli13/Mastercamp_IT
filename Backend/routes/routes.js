@@ -280,7 +280,41 @@ router.get('/loan/:id', authentification, async (req, res) => {
       }
     }
 
-    res.json(loan);
+    let idDoc = 0;
+    if (await Document.exists({ loanId: loan._id, documentName: 'id' })) {
+      const idDocDocument = await Document.findOne({ loanId: loan._id, documentName: 'id' });
+      if(idDocDocument && idDocDocument.validation){
+        idDoc = 2;
+      } else {
+        idDoc = 1;
+      }
+    }
+
+    let idCompte = 0;
+    if (await Document.exists({ loanId: loan._id, documentName: 'compte' })) {
+      const idCompteDocument = await Document.findOne({ loanId: loan._id, documentName: 'compte' });
+      if(idCompteDocument && idCompteDocument.validation){
+        idCompte = 2;
+      } else {
+        idCompte = 1;
+      }
+    }
+
+    let idRevenus = 0;
+    if (await Document.exists({ loanId: loan._id, documentName: 'revenue' })) {
+      const idRevenusDocument = await Document.findOne({ loanId: loan._id, documentName: 'revenue' });
+      if(idRevenusDocument && idRevenusDocument.validation){
+        idRevenus = 2;
+      } else {
+        idRevenus = 1;
+      }
+    }
+
+    // Convert Mongoose document to JS object and add validation array
+    let loanObject = loan.toObject();
+    loanObject.validation = [idDoc, idCompte, idRevenus];
+
+    res.json(loanObject);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch loan' });
   }

@@ -86,9 +86,13 @@
                     <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': item.loan.validation[2] == 2, 'bg-yellow-500': item.loan.validation[2] == 1, 'bg-red-500': item.loan.validation[2] == 0}"></div>
                   </td>
                   <td class="px-4 py-4 text-sm whitespace-nowrap">
-                    <div class="flex items-center gap-x-6">
+                    <div class="flex items-center">
                       <router-link class="text-gray-500 transition-colors duration-200 focus:outline-none rounded border p-2 px-6" :to="{ name: 'DocumentValidation', params: { id: item.loan._id } }">View Document</router-link>
 
+
+
+                      <button>   <svg class="h-6 ml-8" :class="{'text-green-500': item.loan.validation.every(val => val === 2), 'text-gray-500': !item.loan.validation.every(val => val === 2)}" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#000000" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"></path> </g></svg></button>
+                      <button>   <svg class="h-6 ml-8" :class="{'text-red-500': item.loan.validation.every(val => val === 2), 'text-gray-500': !item.loan.validation.every(val => val === 2)}" fill="#000000"  viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cross-round</title> <path d="M0 16q0 3.264 1.28 6.208t3.392 5.12 5.12 3.424 6.208 1.248 6.208-1.248 5.12-3.424 3.392-5.12 1.28-6.208-1.28-6.208-3.392-5.12-5.088-3.392-6.24-1.28q-3.264 0-6.208 1.28t-5.12 3.392-3.392 5.12-1.28 6.208zM4 16q0-3.264 1.6-6.016t4.384-4.352 6.016-1.632 6.016 1.632 4.384 4.352 1.6 6.016-1.6 6.048-4.384 4.352-6.016 1.6-6.016-1.6-4.384-4.352-1.6-6.048zM9.76 20.256q0 0.832 0.576 1.408t1.44 0.608 1.408-0.608l2.816-2.816 2.816 2.816q0.576 0.608 1.408 0.608t1.44-0.608 0.576-1.408-0.576-1.408l-2.848-2.848 2.848-2.816q0.576-0.576 0.576-1.408t-0.576-1.408-1.44-0.608-1.408 0.608l-2.816 2.816-2.816-2.816q-0.576-0.608-1.408-0.608t-1.44 0.608-0.576 1.408 0.576 1.408l2.848 2.816-2.848 2.848q-0.576 0.576-0.576 1.408z"></path> </g></svg></button>
                     </div>
                   </td>
                   

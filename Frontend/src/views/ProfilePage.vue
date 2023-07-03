@@ -133,7 +133,7 @@
                     Broker
                   </th>
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    Validation
+                    Docs Validation
                   </th>
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                     Action
@@ -158,7 +158,7 @@
                   </td>
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{l.loanObject.duration}} months</td>
                   <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{{l.loanObject.broker}}</td>
-                  <td class="px-4 py-4 text-sm text-gray-500 whitespace-nowrap flex justify-evenly mt-2 ">
+                  <td class="pr-6 py-4 text-sm text-gray-500 whitespace-nowrap flex justify-evenly mt-2 ">
                     <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': l.loanObject.validation[0] == 2, 'bg-yellow-500': l.loanObject.validation[0] == 1, 'bg-red-500': l.loanObject.validation[0] == 0}" ></div>
                     <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': l.loanObject.validation[1] == 2, 'bg-yellow-500': l.loanObject.validation[1] == 1, 'bg-red-500': l.loanObject.validation[1] == 0}"></div>
                     <div class="border rounded-xl h-4 p-auto aspect-square	" :class="{'bg-green-500': l.loanObject.validation[2] == 2, 'bg-yellow-500': l.loanObject.validation[2] == 1, 'bg-red-500': l.loanObject.validation[2] == 0}"></div>
