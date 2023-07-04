@@ -1,7 +1,12 @@
 # Banquise 
 
-## Project setup
+## Initialisation du projet
+
+Ouvrir un terminal à la racine du projet, entrer ces commandes : 
+
+
 ### Frontend
+
 ```
 cd Frontend
 npm i 
@@ -13,7 +18,10 @@ npm install filepond vue-filepond
 cd Backend
 npm i
 ```
-## Starting the servers
+
+
+## Lancer les outils
+
 ### Frontend
 ```
 npm run serve
@@ -23,16 +31,5 @@ npm run serve
 ```
 npm start
 ```
+Si vous encontrez une erreur sur le lancement du Backend, supprimez le dossier ```node_modules``` du dossier backend et relancer la commande ```npm i```.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
