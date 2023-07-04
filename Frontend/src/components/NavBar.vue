@@ -1,5 +1,5 @@
 <template>
-  <header class="z-40 bg-white fixed w-full" v-if="!this.$parent.loading">
+  <header class="z-40 bg-white fixed w-full drop-shadow-md" v-if="!this.$parent.loading">
     <div class="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4">
       <router-link class="block text-teal-600" to="/">
         <span class="sr-only">Home</span>
@@ -10,7 +10,7 @@
         <nav aria-label="Global" class="hidden md:block">
           <ul class="flex items-center gap-6 text-sm">
             <li>
-              <router-link class="text-gray-500 transition hover:text-gray-500/75" to="/">
+              <router-link class="text-gray-500 transition hover:text-blue-700" to="/">
                 About
               </router-link>
             </li>
@@ -20,13 +20,13 @@
         <div class="relative flex items-center gap-4">
           <div v-if="!user" class="sm:flex sm:gap-4">
             <router-link
-                class="hidden rounded-md bg-myBlue px-5 py-2.5 text-sm font-medium text-white transition hover:bg-myDarkBlue sm:block"
+                class="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 to="/authentification/login"
             >
               Login
             </router-link>
             <router-link
-                class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-myDarkBlue transition hover:text-myBlue sm:block"
+                class="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 to="/authentification/register"
             >
               Register
@@ -35,14 +35,14 @@
 
           <div v-if="user" class="sm:flex sm:gap-4">
             <router-link
-                class="hidden rounded-md bg-myBlue px-5 py-2.5 text-sm font-medium text-white transition hover:bg-myDarkBlue sm:block"
+                class="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 to="/loanApplication"
             >
               Ask for a loan
             </router-link>
 
             <router-link
-                class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-myDarkBlue transition hover:text-myBlue sm:block"
+                class="hidden sm:block text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
                 to="/profile"
 
 
@@ -51,7 +51,7 @@
             </router-link>
             <router-link
                 v-if="this.adm == true"
-                class="rounded-md bg-red-500 px-5 py-2.5 text-sm font-medium text-white transition sm:block"
+                class="hidden sm:block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
                 to="/loansDashboard"
 
 
@@ -61,7 +61,7 @@
           </div>
 
           <button
-              class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 sm:hidden"
+              class="sm:hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               @click="showMenu = !showMenu"
           >
             <span class="sr-only">Toggle menu</span>
@@ -123,9 +123,9 @@ export default {
     console.log(this.user);
   },
   methods: {
-    
+
   }
-  
+
 };
 </script>
 
