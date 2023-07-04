@@ -703,7 +703,14 @@ router.post('/fileStatus/', authentification, async (req, res) => {
     if (!document) {
       return res.status(404).json({ error: 'Document not found' });
     }
+    if(!document.validation && !bool){
+        await document.remove();
+        return res.status(200).json({ message: 'Document removed successfully' });
+    }
+
+    // Otherwise, update the validation field and save the document
     document.validation = bool;
+
     await document.save()
 
     return res.status(200).json(document);

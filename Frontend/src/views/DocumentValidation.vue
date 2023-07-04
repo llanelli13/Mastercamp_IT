@@ -217,6 +217,7 @@
                 className="px-6 w-auto sm:w-auto mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                 type="button"
                 @click="toggleFileVerification(this.getType(),this.$route.params.id,true)"
+                
                 value="Validate file"
             />
             <input
@@ -280,7 +281,12 @@ export default {
           docName: type,
           bool: verification
         },{headers: {Authorization: 'Bearer ' + token }});
-
+        if(verification){
+          this.$parent.$parent.createNotif("Succès", "Le document a été accepté", 1)
+        }
+        else{
+          this.$parent.$parent.createNotif("Succès", "Le document a été refusé", 1)
+        }
         console.log(response.data);
       } catch (error) {
         console.error(error.response.data);
