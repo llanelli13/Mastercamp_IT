@@ -99,8 +99,8 @@
 
 
 
-                      <button class="ml-8 p-1 px-2 rounded border" :class="{'bg-green-100' : item.loan.validation[0] == 2 && item.loan.validation[1] == 2 && item.loan.validation[2] == 2, 'bg-gray-100' : !item.loan.validation[0] || !item.loan.validation[1] || !item.loan.validation[2]}">   <svg class="h-6 " :class="{'text-green-500': item.loan.validation.every(val => val === 2), 'text-gray-500': !item.loan.validation.every(val => val === 2)}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path id="Vector" d="M6 12L10.2426 16.2426L18.727 7.75732" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></button>
-                      <button class="bg-red-100 ml-2 p-1 px-2 rounded border">   <svg class="h-6" :class="{'text-red-500': item.loan.validation.every(val => val === 2), 'text-gray-500': !item.loan.validation.every(val => val === 2)}" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.96967 16.4697C6.67678 16.7626 6.67678 17.2374 6.96967 17.5303C7.26256 17.8232 7.73744 17.8232 8.03033 17.5303L6.96967 16.4697ZM13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697L13.0303 12.5303ZM11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303L11.9697 11.4697ZM18.0303 7.53033C18.3232 7.23744 18.3232 6.76256 18.0303 6.46967C17.7374 6.17678 17.2626 6.17678 16.9697 6.46967L18.0303 7.53033ZM13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303L13.0303 11.4697ZM16.9697 17.5303C17.2626 17.8232 17.7374 17.8232 18.0303 17.5303C18.3232 17.2374 18.3232 16.7626 18.0303 16.4697L16.9697 17.5303ZM11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697L11.9697 12.5303ZM8.03033 6.46967C7.73744 6.17678 7.26256 6.17678 6.96967 6.46967C6.67678 6.76256 6.67678 7.23744 6.96967 7.53033L8.03033 6.46967ZM8.03033 17.5303L13.0303 12.5303L11.9697 11.4697L6.96967 16.4697L8.03033 17.5303ZM13.0303 12.5303L18.0303 7.53033L16.9697 6.46967L11.9697 11.4697L13.0303 12.5303ZM11.9697 12.5303L16.9697 17.5303L18.0303 16.4697L13.0303 11.4697L11.9697 12.5303ZM13.0303 11.4697L8.03033 6.46967L6.96967 7.53033L11.9697 12.5303L13.0303 11.4697Z" fill="#000000"></path> </g></svg></button>
+                      <button v-if="item.loan.status == 'pending'" @click="acceptLoan(item.loan._id)" class="ml-8 p-1 px-2 rounded border" :class="{'bg-green-100' : item.loan.validation[0] == 2 && item.loan.validation[1] == 2 && item.loan.validation[2] == 2, 'bg-gray-100' : !item.loan.validation[0] || !item.loan.validation[1] || !item.loan.validation[2]}">   <svg class="h-6 " :class="{'text-green-500': item.loan.validation.every(val => val === 2), 'text-gray-500': !item.loan.validation.every(val => val === 2)}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Check"> <path id="Vector" d="M6 12L10.2426 16.2426L18.727 7.75732" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg></button>
+                      <button v-if="item.loan.status == 'pending'" @click="refuseLoan(item.loan._id)" class="bg-red-100 ml-2 p-1 px-2 rounded border">   <svg class="h-6" :class="{'text-red-500': item.loan.validation.every(val => val === 2), 'text-gray-500': !item.loan.validation.every(val => val === 2)}" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.96967 16.4697C6.67678 16.7626 6.67678 17.2374 6.96967 17.5303C7.26256 17.8232 7.73744 17.8232 8.03033 17.5303L6.96967 16.4697ZM13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697L13.0303 12.5303ZM11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303L11.9697 11.4697ZM18.0303 7.53033C18.3232 7.23744 18.3232 6.76256 18.0303 6.46967C17.7374 6.17678 17.2626 6.17678 16.9697 6.46967L18.0303 7.53033ZM13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303L13.0303 11.4697ZM16.9697 17.5303C17.2626 17.8232 17.7374 17.8232 18.0303 17.5303C18.3232 17.2374 18.3232 16.7626 18.0303 16.4697L16.9697 17.5303ZM11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697L11.9697 12.5303ZM8.03033 6.46967C7.73744 6.17678 7.26256 6.17678 6.96967 6.46967C6.67678 6.76256 6.67678 7.23744 6.96967 7.53033L8.03033 6.46967ZM8.03033 17.5303L13.0303 12.5303L11.9697 11.4697L6.96967 16.4697L8.03033 17.5303ZM13.0303 12.5303L18.0303 7.53033L16.9697 6.46967L11.9697 11.4697L13.0303 12.5303ZM11.9697 12.5303L16.9697 17.5303L18.0303 16.4697L13.0303 11.4697L11.9697 12.5303ZM13.0303 11.4697L8.03033 6.46967L6.96967 7.53033L11.9697 12.5303L13.0303 11.4697Z" fill="#000000"></path> </g></svg></button>
                     </div>
                   </td>
                   
@@ -150,22 +150,7 @@ export default {
 
 
   async created() {
-    const token = localStorage.getItem('token');
-
-    axios.get('http://localhost:3000/api/loan', {headers: {Authorization: 'Bearer ' + token }})
-      .then(response => {
-        this.loans = response.data;
-        this.filtered = this.loans;
-        this.loading = false
-
-       })
-        .catch(error => {
-          this.loading = false
-
-          console.log(error)
-        })
-    
-    console.log(this.loans)
+    this.fetch();
 
 
         
@@ -173,6 +158,25 @@ export default {
 
   
   methods: {
+
+    fetch(){
+      const token = localStorage.getItem('token');
+
+      axios.get('http://localhost:3000/api/loan', {headers: {Authorization: 'Bearer ' + token }})
+        .then(response => {
+          this.loans = response.data;
+          this.filtered = this.loans;
+          this.loading = false
+
+        })
+          .catch(error => {
+            this.loading = false
+
+            console.log(error)
+          })
+      
+      console.log(this.loans)
+    },
 
     filter() {
       let newLoans = [];
@@ -186,6 +190,46 @@ export default {
       }
       this.filtered = newLoans;
     },
+
+    acceptLoan(loanid){
+      let loanId = loanid; // replace with actual loan id
+
+      axios.put(`http://localhost:3000/api/loan/accept/${loanId}`, {
+        reason: '',
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`, 
+        }
+      })
+      .then((response) => {
+        this.$parent.$parent.createNotif("Succès", "Demande accepté", 1)
+        this.fetch()
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`);
+      });
+    },
+
+    refuseLoan(loanid){
+      let loanId = loanid; // replace with actual loan id
+
+      axios.put(`http://localhost:3000/api/loan/refuse/${loanId}`, {
+        reason: '',
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`, 
+        }
+      })
+      .then((response) => {
+        this.fetch()
+        this.$parent.$parent.createNotif("Succès", "Demande refusé", 1)
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`);
+      });
+    }
 
 
 
