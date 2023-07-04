@@ -44,8 +44,8 @@
           </svg>
 
           <p class="leading-none">
-            <strong class="block font-medium"> First Document </strong>
-            <small class="mt-1"> First document is missing ... </small>
+            <strong class="block font-medium"> Premier document </strong>
+            <small class="mt-1"> Le document est manquant ... </small>
           </p>
         </li>
         <li v-else @click="this.selected = 1" class="flex items-center justify-center gap-2 p-4" :class="{'relative bg-myBlue text-white' : selected == 1 , 'relative bg-myDarkBlue text-gray-400' :selected != 1}">
