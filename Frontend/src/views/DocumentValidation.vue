@@ -1,7 +1,7 @@
 <template>
   <div v-if="showModal"  @click="showModal = false" class="absolute w-screen h-screen bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-lg z-50 flex items-center justify-center">
     <div @click.stop class="relative w-full sm:w-2/5 mx-auto h-4/5 aspect-auto overflow-auto border z-60 bg-white">
-      <vue-pdf-embed :source="this.documentToShow" />
+      <vue-pdf-embed :source="this.documentToShow.link" />
       <button @click="showModal = false" class="fixed top-2 right-2 w-12 h-12 p-1">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -198,7 +198,7 @@
     </div>
     <div class="h-5/6 mt-10 sm:flex relative ">
       <div @click="showModal = true" class="w-full mb-2 sm:w-2/5 mx-auto  h-full aspect-auto overflow-auto border cursor-pointer ">
-          <vue-pdf-embed  v-if="this.documentToShow" class="cursor-pointer" :source="this.documentToShow" />
+          <vue-pdf-embed  v-if="this.documentToShow" class="cursor-pointer" :source="this.documentToShow.link" />
       </div>
       <div class="w-4/5 h-1/2 sm:w-2/5 sm:h-4/5 mx-auto">
         <div v-if="!isSmallScreen || opened" class="h-2/3">
@@ -214,16 +214,18 @@
 
           <div class="flex flex-col w-full">
             <input
-                className="px-6 w-auto sm:w-auto mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                v-if="this.documentToShow"
+                class="px-6 w-auto sm:w-auto mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                :class="{'bg-gray-500 cursor-not-allowed hover:bg-gray-500' : this.documentToShow.validation}"
                 type="button"
-                @click="toggleFileVerification(this.getType(),this.$route.params.id,true)"
+                @click="handleClick()"
                 
-                value="Validate file"
+                value="Valider le document"
             />
             <input
-                className="px-6 w-auto sm:w-auto  mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+                class="px-6 w-auto sm:w-auto  mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                 type="submit"
-                value="Refuse file"
+                value="Refuser le document"
                 @click="toggleFileVerification(this.getType(),this.$route.params.id,false)"
 
 
@@ -256,6 +258,7 @@ export default {
       pdfSource : [],
       showModal: false,
       documentToShow: null,
+      documentStatus : null,
     };
   },
   methods: {
@@ -271,6 +274,13 @@ export default {
         return 'revenus'
       }
 
+    },
+
+    handleClick() {
+      if (this.documentToShow.validation) {
+        return;
+      }
+      this.toggleFileVerification(this.getType(), this.$route.params.id, true);
     },
 
     async toggleFileVerification(type, loanid, verification) {
@@ -301,17 +311,19 @@ export default {
     }
     const response = await this.$parent.$parent.getDocuments(this.$route.params.id);
     this.pdfSource = response;
-    this.documentToShow = this.pdfSource.id.link;
+    this.documentToShow = this.pdfSource.id;
 
   },
   watch: {
     selected: function (newSelectedValue) {
       if (newSelectedValue === 1) {
-        this.documentToShow = this.pdfSource.id.link;
+        this.documentToShow = this.pdfSource.id;
       } else if (newSelectedValue === 2) {
-        this.documentToShow = this.pdfSource.compte.link;
+        this.documentToShow = this.pdfSource.compte;
+
       } else if (newSelectedValue === 3) {
-        this.documentToShow = this.pdfSource.revenus.link;
+        this.documentToShow = this.pdfSource.revenus;
+
       }
     },
   },
