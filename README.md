@@ -41,7 +41,6 @@ Si vous encontrez une erreur sur le lancement du Backend, supprimez le dossier `
 - Faire une simulation de prêt 
 - S'inscrire via le bouton **_Inscription_**
 - Se connecter avec les identifiants de connexion
-- Accéder à son profil, possibilité de modifier ses informations, photo de profil ...
 - Faire une **demande de prêt** via le bouton dans la barre de navigation
 
 **Demande de prêt :**
@@ -56,17 +55,11 @@ Si vous encontrez une erreur sur le lancement du Backend, supprimez le dossier `
 - Accéder de nouveau à l'espace de dépôts de documents
 - Prévisonner l'avancement de la validation de ses documents grâce au points de couleurs, ( vert : validé, orange : en cours, rouge : refusé)
 
-## Création de clé pour courtier (espace banque) 
 
-- Se connecter à la page ```http://localhost:8080/brokerManagement```
-- Se connecter avec les identifiants d'une banque (test : id = _id ; pwd = _pwd)
-- Visualiser les courtiers en fonction de la banque et créer de nouvelles clés.
-- 
 ## Côté courtier : 
 
-- S'inscrire via le bouton **_Inscription_**, à l'aide de la clé d'activation obtenue grâce à sa banque (test : clé générée précedemment)
+- S'inscrire via le bouton **_Inscription_**, à l'aide de la clé d'activation obtenue grâce à sa banque (clé pour test : 6874-1851-1210-5383)
 - Se connecter avec les identifiants de connexion
-- Accéder à son profil, possibilité de modifier ses informations, photo de profil ...
 -  Faire une **demande de prêt** via le bouton dans la barre de navigation (filtrée ici pour qu'elle soit adressée à d'autres courtiers)
 
 **Gérer les dossiers de prêt lui étant attribués :**
