@@ -695,13 +695,16 @@ router.get('/file/:id/:name', authentification, async (req, res) => {
 
 router.post('/fileStatus/', authentification, async (req, res) => {
   try {
-    const { ID, Bool } = req.body;  // Get ID and Bool from request body
+    const { ID, docName, bool } = req.body;  // Get ID and Bool from request body
 
-    const document = await Document.findByIdAndUpdate(ID, { validation: Bool }, { new: true });
+    const document = await Document.findOne({loanId: ID, documentName: docName});
+    
     
     if (!document) {
       return res.status(404).json({ error: 'Document not found' });
     }
+    document.validation = bool;
+    await document.save()
 
     return res.status(200).json(document);
 

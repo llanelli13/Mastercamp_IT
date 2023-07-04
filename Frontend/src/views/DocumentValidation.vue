@@ -223,6 +223,7 @@
                 className="px-6 w-auto sm:w-auto  mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                 type="submit"
                 value="Refuse file"
+                @click="toggleFileVerification(this.getType(),this.$route.params.id,false)"
 
 
             />
@@ -271,13 +272,13 @@ export default {
 
     },
 
-    async toggleFileVerification(type, ID, verification) {
+    async toggleFileVerification(type, loanid, verification) {
       try {
         let token = localStorage.getItem("token")
-        const response = await axios.post('http://localhost:3000/api/fileVerification/', {
-          ID : ID,
-          type: type,
-          verification: verification
+        const response = await axios.post('http://localhost:3000/api/fileStatus/', {
+          ID : loanid,
+          docName: type,
+          bool: verification
         },{headers: {Authorization: 'Bearer ' + token }});
 
         console.log(response.data);
