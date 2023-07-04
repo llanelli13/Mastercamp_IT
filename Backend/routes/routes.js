@@ -160,7 +160,6 @@ router.post("/token/generate", async (req, res) => {
 
 
 
-
 router.get("/user", authentification, async (req, res) => {
   try {
     res.send(req.user);
@@ -221,6 +220,13 @@ router.get("/user/getAdmins", authentification, async (req, res) => {
 });
 
 
+router.post("/admin/toggle", async (req, res) => {
+  try {
+      
+  } catch (error) {
+
+  }
+});
 
 
 router.post("/user/register", async (req, res) => {
@@ -289,7 +295,7 @@ router.post("/user/register", async (req, res) => {
 router.post("/loan/create", authentification, async (req, res) => {
   try {
       // Extract information from request body
-      const { amount, duration, purpose } = req.body;
+      const { amount, duration, purpose, broker } = req.body;
 
       // Ensure all required information is provided
       if (!amount || !duration || !purpose) {
@@ -302,6 +308,7 @@ router.post("/loan/create", authentification, async (req, res) => {
           amount,
           duration,
           purpose,
+          broker,
           reason: ''
       });
 
@@ -399,7 +406,7 @@ router.get('/loan/:id', authentification, async (req, res) => {
     }
 
     const admin = await Admin.findOne({ adminUser: req.user._id })
-    if(loan.userId != req.user._id){
+    if(loan.userId.toString() != req.user._id){
       if(!admin){
         return res.status(403).json({error: 'This is not your loan'})
       }

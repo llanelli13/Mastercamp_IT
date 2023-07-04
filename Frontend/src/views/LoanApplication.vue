@@ -17,18 +17,9 @@
             >Montant total du prêt</label
             >
             <input
+                v-model="amount"
                 type="number"
                 placeholder="Ex : 20 000"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-            />
-          </div>
-          <div className="mt-4">
-            <label htmlFor="username" className="block text-sm text-black"
-            >Montant mensuel préféré</label
-            >
-            <input
-                type="number"
-                placeholder="Ex : 500"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             />
           </div>
@@ -37,11 +28,21 @@
             >Durée envisagée
             </label>
             <input
+                v-model="time"
                 type="number"
                 placeholder="Ex : 40"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             />
           </div>
+          <div className="mt-4">
+            <label htmlFor="username" className="block text-sm text-black"
+            >Montant mensuel</label
+            >
+            <span className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+              {{ this.average }} €/mois
+              </span>
+          </div>
+          
         </div>
         <div className="w-4/5 sm:w-2/5 mx-auto">
           <div className="mt-4">
@@ -49,6 +50,7 @@
             >Intention d'utilisation des fonds</label
             >
             <textarea
+                v-model="purpose"
                 placeholder="Ex : Acheter un bien immobilier à Paris ..."
                 rows="5"
                 className="resize-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
@@ -59,20 +61,14 @@
             >Courtier</label
             >
             <select
-                name="HeadlineAct"
-                id="HeadlineAct"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-            >
-              >
-              <option value="">Choisir</option>
-              <option value="JM">John Mayer</option>
-              <option value="SRV">Stevie Ray Vaughn</option>
-              <option value="JH">Jimi Hendrix</option>
-              <option value="BBK">B.B King</option>
-              <option value="AK">Albert King</option>
-              <option value="BG">Buddy Guy</option>
-              <option value="EC">Eric Clapton</option>
-            </select>
+              name="HeadlineAct"
+              id="HeadlineAct"
+              v-model="broker"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+          >
+            <option v-for="b in this.filteredBrokers" :key="b" :value="b.user._id">{{ b.user.firstName }} {{ b.user.lastName }}</option>
+          </select>
+
           </div>
         </div>
       </div>
@@ -80,48 +76,72 @@
         <input
             style="width: 200px; height: 50px"
             className="text-white cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 "
-            type="submit"
+            type="button"
             value="Soumettre"
+            @click="createLoan()"
         />
       </div>
     </div>
   </div>
 </template>
 <script>
-const axios = require('axios');
+import axios from 'axios';
 
 export default {
-
   name: 'LoanApplication',
-  components: {},
-  props: {},
   data() {
     return {
-      brokers: []
+      brokers: [],
+      amount: null,
+      time: null,
+      purpose: '',
+      broker: null,  // broker field added here
     };
   },
   computed: {
-      filteredBrokers() {
-        return this.brokers.filter(b =>
-          this.$parent.$parent.userinfo.bank == b.user.bank
-        );
+    filteredBrokers() {
+      // Safeguard added for undefined parent
+      if (this.$parent && this.$parent.$parent && this.$parent.$parent.userinfo && this.$parent.$parent.userinfo.bank) {
+        return this.brokers.filter(b => this.$parent.$parent.userinfo.bank == b.user.bank);
+      } else {
+        return [];
       }
     },
-
-  created(){
-    let token = localStorage.getItem("token")
-
-
+    average() {
+      return this.amount && this.time ? this.amount / this.time : '';
+    },
+  },
+  created() {
+    const token = localStorage.getItem("token")
     axios.get('http://localhost:3000/api/user/getAdmins', {headers: {Authorization: 'Bearer ' + token }})
       .then(response => {
         this.brokers = response.data;
-       })
-        .catch(error => {
-          console.log(error)
-        })
-
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
-  methods: {},
+  methods: {
+    createLoan() {
+      console.log(this.amount + ' ' + this.time + ' ' + this.broker + ' '+ ' ' + this.purpose)
+
+      const token = localStorage.getItem("token")
+      axios.post('http://localhost:3000/api/loan/create', {
+        amount: this.amount,
+        duration: this.time,
+        broker: this.broker,
+        purpose: this.purpose,
+      }, {headers: {Authorization: 'Bearer ' + token }})
+      .then(response => {
+        this.$router.push('/profile')
+        this.$parent.$parent.createNotif("Succès", "Votre demande de prêt a été effectué", 1)
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    },
+  },
 };
 </script>
 
