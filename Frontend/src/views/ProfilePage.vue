@@ -42,7 +42,7 @@
                 class="absolute inset-0 flex items-center justify-center cursor-pointer rounded-full transition-all bg-black bg-opacity-50 duration-500 ease-in-out"
                 @mouseleave="hover = false"
                 @click="this.$parent.$parent.userinfo.pp = null">
-              <p class="text-white text-lg">Edit Pic</p>
+              <p class="text-white text-lg">Modifier l'image</p>
             </div>
           </div>
 
@@ -50,19 +50,19 @@
           <div class="mt-2 md:mx-6 flex items-center">
             <div class="h-2/5 mr-10 py-4">
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-xs  sm:text-sm text-black">Last Name</label>
+                <label for="username" class="block text-xs  sm:text-sm text-black">Nom</label>
                 <input type="text"
                        :value="this.$parent.$parent.userinfo.lastName"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-xs sm:text-sm text-black">First Name</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Prénom</label>
                 <input type="text"
                        :value="this.$parent.$parent.userinfo.firstName"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-xs sm:text-sm text-black">Phone Number</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Numéro de téléphone</label>
                 <input type="text"
                        :value="this.$parent.$parent.userinfo.phoneNumber"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
@@ -76,12 +76,12 @@
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-xs sm:text-sm text-black">Birthdate</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Date de naissance</label>
                 <input type="text" :value="this.$parent.$parent.userinfo.birthday"
                        class="block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"/>
               </div>
               <div class="h-1/3 m-2">
-                <label for="username" class="block text-xs sm:text-sm text-black">Gender</label>
+                <label for="username" class="block text-xs sm:text-sm text-black">Genre</label>
                 <input type="text"
                        :value="this.$parent.$parent.userinfo.gender"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
@@ -95,12 +95,12 @@
             <input
                 class="text-white cursor-pointer bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 "
                 type="submit"
-                value="Save"
+                value="Modifier"
             />
             <input
                 class="text-white cursor-pointer bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 "
                 type="submit"
-                value="Logout"
+                value="Déconnexion"
                 @click="logout"
 
             />
@@ -112,9 +112,9 @@
       </main>
 
     </div>
-    <div class="flex flex-col mx-40 mt-8">
-      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <h1 class="text-3xl bold px-8 mt-4 mb-8">Asked Loans :</h1>
+    <div class="flex flex-col w-full mx-auto mx-10 mt-8">
+      <div class="w-full -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <h1 class="text-3xl bold px-8 mt-4 mb-8">Demande de prêts :</h1>
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 
           <div class="overflow-hidden border border-gray-200  md:rounded-lg">
@@ -131,25 +131,25 @@
                 </th>
 
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  Purpose
+                  But
                 </th>
 
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  Status
+                  État
                 </th>
 
 
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  Duration
+                  Durée
                 </th>
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  Broker
+                  Courtier
                 </th>
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  Docs Validation
+                  Validation des documents
                 </th>
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  Action
+                  Actions
                 </th>
 
                 <th scope="col" class="relative py-3.5 px-4">
@@ -160,7 +160,7 @@
               </thead>
 
               <tbody v-if="!loading" class="bg-white divide-y divide-gray-200 w-full">
-              <h1 v-if="!loans" class="w-full py-4 px-4">0 loan loaded...</h1>
+              <h1 v-if="!loans" class="w-full py-4 px-4">Aucun prêt chargé ...</h1>
               <tr v-for="l in loans" v-bind:key="l">
                 <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                   <div class="inline-flex items-center gap-x-3">
