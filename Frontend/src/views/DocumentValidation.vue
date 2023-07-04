@@ -64,8 +64,8 @@
           </svg>
 
           <p class="leading-none">
-            <strong class="block font-medium"> First Document </strong>
-            <small class="mt-1"> Description of the document </small>
+            <strong class="block font-medium"> Premier document </strong>
+            <small class="mt-1"> Description du document </small>
           </p>
         </li>
 
@@ -99,8 +99,8 @@
           </svg>
 
           <p class="leading-none">
-            <strong class="block font-medium"> Second Document </strong>
-            <small class="mt-1"> Second document is missing ... </small>
+            <strong class="block font-medium"> Deuxième document </strong>
+            <small class="mt-1"> Le document est manquant ... </small>
           </p>
         </li>
         <li v-else @click="this.selected = 2" class="flex items-center justify-center gap-2  p-4" :class="{'relative bg-myBlue text-white' : selected == 2 , 'relative bg-myDarkBlue text-gray-400' :selected != 2}">
@@ -133,8 +133,8 @@
           </svg>
 
           <p class="leading-none">
-            <strong class="block font-medium"> Second Document </strong>
-            <small class="mt-1"> Description of the document</small>
+            <strong class="block font-medium"> Deuxième document </strong>
+            <small class="mt-1"> Description du document</small>
           </p>
         </li>
 
@@ -169,8 +169,8 @@
           </svg>
 
           <p class="leading-none">
-            <strong class="block font-medium"> Third Document </strong>
-            <small class="mt-1"> Third document is missing ... </small>
+            <strong class="block font-medium"> Troisième document </strong>
+            <small class="mt-1"> Le document est manquant ... </small>
           </p>
         </li>
         <li v-else @click="this.selected = 3" class="flex items-center justify-center  gap-2 p-4" :class="{'relative bg-myBlue text-white' : selected == 3 , 'relative bg-myDarkBlue text-gray-400' :selected != 3}">
@@ -190,8 +190,8 @@
           </svg>
 
           <p class="leading-none">
-            <strong class="block font-medium"> Third Document </strong>
-            <small class="mt-1"> Description of the document </small>
+            <strong class="block font-medium"> Troisième document </strong>
+            <small class="mt-1"> Description du document </small>
           </p>
         </li>
       </ol>
@@ -202,13 +202,13 @@
       </div>
       <div class="w-4/5 h-1/2 sm:w-2/5 sm:h-4/5 mx-auto">
         <div v-if="!isSmallScreen || opened" class="h-2/3">
-          <label for="Description" class="block text-sm text-black mb-2">Information about the document to communicate</label>
+          <label for="Description" class="block text-sm text-black mb-2">Informations à communiquer par rapport au document</label>
           <textarea placeholder=""
                     class="block w-full h-4/6 placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
           </textarea>
         </div>
         <div v-else @click="opened = true" class="h-1/3 flex items-center justify-center text-gray-500">
-          Open description
+          Ouvrir la description
         </div>
         <div class="h-1/3">
 

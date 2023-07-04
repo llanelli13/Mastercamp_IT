@@ -8,13 +8,13 @@
         <div v-on:click="loginParam = 'login'"
              class="cursor-pointer w-1/2 pb-4 font-medium text-center text-gray-500 capitalize border-b "
              :class="{'border-b-2 border-blue-700 text-black' : loginParam == 'login'}">
-          sign in
+          Connexion
         </div>
 
         <div v-on:click="loginParam = 'register';"
              class="cursor-pointer w-1/2 pb-4 font-medium text-center text-gray-500 capitalize border-b "
              :class="{'border-b-2 border-blue-700 text-black' : loginParam == 'register'}">
-          sign up
+          Inscription
         </div>
       </div>
 
@@ -33,7 +33,7 @@
             <input v-model="firstName"
                    type="text"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                   placeholder="First name">
+                   placeholder="Prénom">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -47,7 +47,7 @@
             <input v-model="lastName"
                    type="text"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Last name">
+                   placeholder="Nom">
           </div>
 
 
@@ -63,7 +63,7 @@
             <input v-model="phoneNumber"
                    type="text"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Phone number">
+                   placeholder="Numéro de téléphone">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -77,7 +77,7 @@
             <input v-model="email"
                    type="email"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Email address">
+                   placeholder="Email ">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -104,7 +104,7 @@
             <input v-model="gender"
                    type="text"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Gender">
+                   placeholder="Genre">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -118,7 +118,7 @@
             <input v-model="pwd"
                    type="password"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Password">
+                   placeholder="Mot de passe">
           </div>
 
           <div class="relative flex items-center py-1">
@@ -131,7 +131,7 @@
           </span>
             <input type="password"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Confirm Password">
+                   placeholder="Confirmer le mot de passe">
           </div>
 
 
@@ -149,7 +149,7 @@
                 id="HeadlineAct"
                 class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
             >
-              <option value="">Select Bank</option>
+              <option value="">Sélectionner une banque</option>
               <option v-for="b in bankValue " v-bind:key="b" :value="b._id">{{ b.name }}</option>
 
             </select>
@@ -158,8 +158,7 @@
           </div>
           <div v-if="!brockerChecked" class="relative flex item-center py-4">
             <div @click="brockerChecked = true"
-                 class="px-2 w-full cursor-pointer underline text-blue-700 decoration-solid">Do you want to register as
-              a broker ?
+                 class="px-2 w-full cursor-pointer underline text-blue-700 decoration-solid">Voulez-vous vous inscrire en tant que courtier ?
             </div>
           </div>
           <div v-else>
@@ -167,13 +166,12 @@
             <div class="relative flex items-center mt-2">
 
               <input type="text" v-model="token"
-                     placeholder="Enter your token"
+                     placeholder="Entrer votre clé"
                      class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   ">
             </div>
             <div class="absolute flex items-center justify-between">
               <div @click="brockerChecked = false"
-                   class="text-xs text-gray-600 cursor-pointer mt-2 hover:italic hover:underline ">Not
-                a broker ?
+                   class="text-xs text-gray-600 cursor-pointer mt-2 hover:italic hover:underline ">Pas un courtier ?
               </div>
             </div>
           </div>
@@ -187,12 +185,12 @@
           </span>
             <input type="text"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Enter the address of your agency ...">
+                   placeholder="Adresse de votre agence ...">
           </div>
 
           <div class="col-span-2 mt-6">
             <input type="button"
-                   value="Register" v-on:click="register()"
+                   value="Inscription" v-on:click="register()"
                    class="w-full cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
           </div>
         </form>
@@ -211,7 +209,7 @@
 
             <input v-model="loginMail" type="email"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Email address">
+                   placeholder="Email">
           </div>
 
           <div class="relative flex items-center mt-4">
@@ -225,11 +223,11 @@
 
             <input v-model="loginPwd" type="password"
                    class="bg-gray-50 px-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
-                   placeholder="Password">
+                   placeholder="Mot de passe">
           </div>
 
           <div class="mt-6">
-            <input value="login" v-on:click="loginUser(loginMail, loginPwd)" type="button"
+            <input value="Connexion" v-on:click="loginUser(loginMail, loginPwd)" type="button"
                    class="w-full cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">
           </div>
         </form>
@@ -295,14 +293,14 @@ export default {
 
       axios.post('http://localhost:3000/api/user/register', user)
         .then(response => {
-          this.$parent.$parent.createNotif("Success", "Your account has been registered", 1)
+          this.$parent.$parent.createNotif("Succès", "Votre compte a bien été enregistré", 1)
 
           console.log(response.data);
 
           
         })
         .catch(error => {
-          this.$parent.$parent.createNotif("Error", "Failed to register your account", 2)
+          this.$parent.$parent.createNotif("Erreur", "Échec de l'inscription", 2)
 
           console.log(error);
       
@@ -329,12 +327,12 @@ export default {
           // Saving auth token to localStorage or other state management.
           localStorage.setItem("token", data.authToken);
           this.$parent.$parent.getUser()
-          this.$parent.$parent.createNotif("Success", "You are connected to your account", 1)
+          this.$parent.$parent.createNotif("Succès", "Vous êtes connectés !", 1)
 
           router.push('/')
         })
         .catch(error => {
-          this.$parent.$parent.createNotif("Error", "Connection Failed", 2)
+          this.$parent.$parent.createNotif("Erreur", "Connexion impossible ...", 2)
           console.error(error);
         });
     }

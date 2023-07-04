@@ -6,14 +6,14 @@
       <h1 class="text-3xl font-extrabold sm:text-5xl pt-4 w-full text-center text-blue-950">Drop Documents</h1>
       <!-- Informations about the loan -->
       <div class="w-full text-center flex justify-evenly mt-4" >
-        <p>Purpose : {{this.loan.purpose}} </p>
-        <p>Amount : {{this.loan.amount}} €</p>
-        <p>Duration : {{this.loan.duration}} months</p>
+        <p>But : {{this.loan.purpose}} </p>
+        <p>Montant : {{this.loan.amount}} €</p>
+        <p>Durée : {{this.loan.duration}} mois</p>
       </div>
 
       <!-- Drop documents 1-->
       <div v-if="this.loan.validation && this.loan.validation[0] === 0" class="cursor-pointer justify-center">
-        <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">ID</h3>
+        <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Pièce d'identité</h3>
         <FilePond
             class="w-1/3 text-center mx-auto mt-2"
             name="identity"
@@ -39,10 +39,10 @@
             </svg>
           </button>
           <div class="w-2/5 text-center mx-auto flex justify-center items-center" :class="{'text-red-500' : this.loan.validation[0] === 0 ,'text-yellow-500' : this.loan.validation[0] === 1,'text-green-500' : this.loan.validation[0] === 2 }">
-            <strong>Status: {{ this.loan.validation[0] === 0 ? 'Refused' : (this.loan.validation[0] === 1 ? 'In Progress' : 'Validated') }}</strong>
+            <strong>Status: {{ this.loan.validation[0] === 0 ? 'Refusé' : (this.loan.validation[0] === 1 ? 'En cours ' : 'Validaté') }}</strong>
           </div>
           <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
-            File : ID
+            Fichier : Identité
           </div>
           <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
           </div>
@@ -58,7 +58,7 @@
 
       <!-- Drop documents 2-->
       <div v-if="this.loan.validation && this.loan.validation[1] === 0" class="cursor-pointer justify-center">
-        <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Statement of account</h3>
+        <h3 class="mt-16 text-xl font-extrabold  w-full text-center text-blue-950">Relevé de compte</h3>
         <FilePond
             class="w-1/3 text-center mx-auto mt-2"
             name="compte"
@@ -84,10 +84,10 @@
             </svg>
           </button>
           <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[1] === 0 ,'text-yellow-500' : this.loan.validation[1] === 1,'text-green-500' : this.loan.validation[1] === 2 }">
-            <strong>Status: {{ this.loan.validation[1] === 0 ? 'Refused' : (this.loan.validation[1] === 1 ? 'In Progress' : 'Validated') }}</strong>
+            <strong>Status: {{ this.loan.validation[1] === 0 ? 'Refusé' : (this.loan.validation[1] === 1 ? 'En cours' : 'Validaté') }}</strong>
           </div>
           <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
-            File : Statement of account
+            Fichier : Relevé de compte
           </div>
           <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
           </div>
@@ -129,10 +129,10 @@
             </svg>
           </button>
           <div class="w-2/5 text-center mx-auto flex justify-center  items-center" :class="{'text-red-500' : this.loan.validation[2] === 0 ,'text-yellow-500' : this.loan.validation[2] === 1,'text-green-500' : this.loan.validation[2] === 2 }">
-            <strong>Status: {{ this.loan.validation[2] === 0 ? 'Refused' : (this.loan.validation[2] === 1 ? 'In Progress' : 'Validated') }}</strong>
+            <strong>Status: {{ this.loan.validation[2] === 0 ? 'Refusé' : (this.loan.validation[2] === 1 ? 'En cours' : 'Validaté') }}</strong>
           </div>
           <div class="w-2/5 text-center mx-auto bg-gray-200 rounded-t-lg flex justify-center  items-center">
-            File : Proof of income
+            Fichier : Justificatif de revenus
           </div>
           <div class=" w-1/5 text-center mx-auto bg-gray-200 rounded-t-lg">
           </div>

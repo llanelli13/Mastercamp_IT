@@ -4,16 +4,16 @@
     <div class="w-full h-12 sm:h-20 border shadow-md ">
       <div class="w-full h-full flex justify-between items-center bg-gray-100 pl-12 sm:pl-0">
         <div class="w-2/6 h-full sm:flex justify-center items-center text-sm sm:text-lg">
-          <strong>Purpose :</strong>
+          <strong>But :</strong>
           <p class="ml-0 sm:ml-2 text-ellipsis overflow-hidden w-3/4 ">{{loanInfo.purpose}}</p>
 
         </div>
         <div class="w-2/6 h-full sm:flex justify-center items-center text-sm sm:text-lg">
-          <strong>Duration :</strong>
-          <p class="ml-0 sm:ml-2 text-ellipsis overflow-hidden w-3/4 "> {{loanInfo.duration}} Months</p>
+          <strong>Durée :</strong>
+          <p class="ml-0 sm:ml-2 text-ellipsis overflow-hidden w-3/4 "> {{loanInfo.duration}} mois</p>
         </div>
         <div class="w-2/6 h-full sm:flex justify-center items-center text-sm sm:text-lg">
-          <strong>Amount :</strong>
+          <strong>Montant :</strong>
           <p class="ml-0 sm:ml-2 text-ellipsis overflow-hidden w-3/4 "> {{loanInfo.amount}} €</p>
         </div>
       </div>

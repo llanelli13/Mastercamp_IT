@@ -8,13 +8,13 @@
       <h1
           className="text-xl font-extrabold sm:text-3xl pt-4 w-full text-center text-blue-950"
       >
-        Loan Application
+        Demande de prêt
       </h1>
       <div className="sm:flex justify-center items-center mt-4">
         <div className="w-4/5 sm:w-2/5 mx-auto">
           <div className="mt-5">
             <label htmlFor="username" className="block text-sm text-black"
-            >Total amount of your loan</label
+            >Montant total du prêt</label
             >
             <input
                 type="number"
@@ -24,7 +24,7 @@
           </div>
           <div className="mt-4">
             <label htmlFor="username" className="block text-sm text-black"
-            >Prefered monthly amount</label
+            >Montant mensuel préféré</label
             >
             <input
                 type="number"
@@ -34,7 +34,7 @@
           </div>
           <div className="mt-4">
             <label htmlFor="username" className="block text-sm text-black"
-            >Prefered Duration
+            >Durée envisagée
             </label>
             <input
                 type="number"
@@ -46,17 +46,17 @@
         <div className="w-4/5 sm:w-2/5 mx-auto">
           <div className="mt-4">
             <label htmlFor="Description" className="block text-sm text-black"
-            >Intended use of funds</label
+            >Intention d'utilisation des fonds</label
             >
             <textarea
-                placeholder="Ex : Pay for my studies ... "
+                placeholder="Ex : Acheter un bien immobilier à Paris ..."
                 rows="5"
                 className="resize-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             />
           </div>
           <div className="mt-4">
             <label htmlFor="HeadlineAct" class Name="block text-sm text-black"
-            >Type of loan</label
+            >Courtier</label
             >
             <select
                 name="HeadlineAct"
@@ -64,7 +64,7 @@
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
               >
-              <option value="">Please select</option>
+              <option value="">Choisir</option>
               <option value="JM">John Mayer</option>
               <option value="SRV">Stevie Ray Vaughn</option>
               <option value="JH">Jimi Hendrix</option>
@@ -81,7 +81,7 @@
             style="width: 200px; height: 50px"
             className="text-white cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 "
             type="submit"
-            value="Submit"
+            value="Soumettre"
         />
       </div>
     </div>

@@ -9,11 +9,7 @@
       <div class="flex flex-1 items-center justify-end md:justify-between">
         <nav aria-label="Global" class="hidden md:block">
           <ul class="flex items-center gap-6 text-sm">
-            <li>
-              <router-link class="text-gray-500 transition hover:text-blue-700" to="/">
-                About
-              </router-link>
-            </li>
+
           </ul>
         </nav>
 
@@ -23,13 +19,13 @@
                 class="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 to="/authentification/login"
             >
-              Login
+              Connexion
             </router-link>
             <router-link
                 class="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 to="/authentification/register"
             >
-              Register
+              Inscription
             </router-link>
           </div>
 
@@ -38,7 +34,7 @@
                 class="hidden sm:block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 to="/loanApplication"
             >
-              Ask for a loan
+              Demander un prêt
             </router-link>
 
             <router-link
@@ -47,7 +43,7 @@
 
 
             >
-              Profile
+              Profil
             </router-link>
             <router-link
                 v-if="this.adm == true"
@@ -91,14 +87,14 @@
                 @click="showMenu = !showMenu"
 
             >
-              {{ user ? 'Ask for a loan' : 'Login' }}
+              {{ user ? 'Demander un prêt' : 'Connexion' }}
             </router-link>
             <router-link
                 class="block px-4 py-2 text-myDarkBlue hover:bg-gray-100"
                 :to="user ? '/profile' : '/authentification/register'"
                 @click="showMenu = !showMenu"
             >
-              {{ user ? 'Profile' : 'Register' }}
+              {{ user ? 'Profil' : 'Inscription' }}
             </router-link>
           </div>
         </div>

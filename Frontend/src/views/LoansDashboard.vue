@@ -2,13 +2,13 @@
   <section class="container px-4 my-20 mx-2 sm:mx-auto">
     <div class="flex flex-col">
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <h1 class="text-3xl bold px-8 mt-4 mb-8">Administration Panel :</h1>
+        <h1 class="text-3xl bold px-8 mt-4 mb-8">Panneau d'administration :</h1>
         <div class="flex justify-around w-full my-4 sm:w-1/2 mx-8 mt-4">
               <h3 class="py-1">Filters:</h3>
-              <input v-on:click="this.filterRef = !this.filterRef" type="button" class="py-1 cursor-pointer px-4 rounded border" :value="'Refused' + (filterRef ? ' ✅' : ' ❌')" :class="{'border-green-300': filterRef, 'border-red-300': !filterRef}">
-              <input v-on:click="this.filterWai = !this.filterWai" type="button" class="py-1 cursor-pointer px-4 rounded border" :value="'Waiting' + (filterWai ? ' ✅' : ' ❌')" :class="{'border-green-300': filterWai, 'border-red-300': !filterWai}">
-              <input v-on:click="this.filterAcc = !this.filterAcc" type="button" class="py-1 cursor-pointer px-4 rounded border" :value="'Accepted' + (filterAcc ? ' ✅' : ' ❌')" :class="{'border-green-300': filterAcc, 'border-red-300': !filterAcc}">
-              <input type="button" value="Search 🔎" class="py-1 cursor-pointer px-8 rounded border" v-on:click="filter()">
+              <input v-on:click="this.filterRef = !this.filterRef" type="button" class="py-1 cursor-pointer px-4 rounded border" :value="'Refusé' + (filterRef ? ' ✅' : ' ❌')" :class="{'border-green-300': filterRef, 'border-red-300': !filterRef}">
+              <input v-on:click="this.filterWai = !this.filterWai" type="button" class="py-1 cursor-pointer px-4 rounded border" :value="'En attente' + (filterWai ? ' ✅' : ' ❌')" :class="{'border-green-300': filterWai, 'border-red-300': !filterWai}">
+              <input v-on:click="this.filterAcc = !this.filterAcc" type="button" class="py-1 cursor-pointer px-4 rounded border" :value="'Accepté' + (filterAcc ? ' ✅' : ' ❌')" :class="{'border-green-300': filterAcc, 'border-red-300': !filterAcc}">
+              <input type="button" value="Chercher 🔎" class="py-1 cursor-pointer px-8 rounded border" v-on:click="filter()">
             </div>
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
           
@@ -29,29 +29,29 @@
                   </th>
 
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500" >
-                    Purpose
+                    But
                   </th>
 
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    Status
+                    État
                   </th>
 
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    Customer
+                    Client
                   </th>
 
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    Amount
+                    Montant
                   </th>
 
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    Duration
+                    Durée
                   </th>
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    Validation
+                    Avancement
                   </th>
                   <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    Messages
+                    Messagerie
                   </th>
 
                   <th scope="col" class="relative py-3.5 px-4">
@@ -60,7 +60,7 @@
                 </tr>
               </thead>
               <tbody v-if="!this.loading" class="bg-white divide-y divide-gray-200 w-full">
-                <h1 v-if="!filtered.length" class="w-full py-4 px-4">0 loan loaded...</h1>
+                <h1 v-if="!filtered.length" class="w-full py-4 px-4">Aucun prêt chargé ...</h1>
                 <tr v-for="item in filtered" :key="item.loan._id">
                   <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                     <div class="inline-flex items-center gap-x-3">
