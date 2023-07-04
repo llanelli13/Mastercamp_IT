@@ -69,15 +69,33 @@ router.post("/bank/connect", async (req, res) => {
   
     const acc = await BankAcc.findOne({ id: req.body.id });
     if (!acc) {
-      res.status(401).json({ message: "Invalid id" });
+      return res.status(401).json({ message: "Invalid id" });
     }
 
-    
     if (acc.pwd != req.body.pwd) {
-      res.status(401).json({ message: "Invalid password" });
+      return res.status(401).json({ message: "Invalid password" });
     }
 
-    res.send({id: acc._id, bank: acc.bank});
+    const bank = await Bank.findById(acc.bank);
+    if (!bank) {
+      return res.status(404).send('Bank not found');
+    }
+    console.log(bank._id)
+
+    // Find users who have the same bank
+    const users = await User.find({ bank: bank._id });
+    console.log(users)
+
+    // Filter users who are admins
+    const admins = [];
+    for(let user of users) {
+      const admin = await Admin.findOne({ adminUser: user._id });
+      if(admin) {
+        admins.push(user);
+      }
+    }
+
+    res.send({id: acc._id, bank: acc.bank, brokers: admins});
 
   } catch (error) {
     res.status(400).send();
@@ -94,6 +112,54 @@ router.post("/user/logout/all", authentification, async (req, res) => {
     res.status(500).send();
   }
 });
+
+router.post("/token/generate", async (req, res) => {
+  try {
+    let tokenValue;
+    let tokenExists;
+
+    const acc = await BankAcc.findOne({ id: req.body.id });
+    if (!acc) {
+      return res.status(401).json({ message: "Invalid id" });
+    }
+
+    if (acc.pwd != req.body.pwd) {
+      return res.status(401).json({ message: "Invalid password" });
+    } 
+
+    const bank = await Bank.findById(acc.bank);
+    if (!bank) {
+      return res.status(404).send('Bank not found');
+    }
+    
+    do {
+      // Generate a token in the form XXXX-XXXX-XXXX-XXXX
+      tokenValue = "";
+      for (let i = 0; i < 4; i++) {
+        tokenValue += Math.floor(1000 + Math.random() * 9000) + "-";
+      }
+      tokenValue = tokenValue.slice(0, -1);  // Remove the trailing "-"
+
+      // Check if this token already exists in the database
+      tokenExists = await Token.findOne({ tokenValue });
+    } while(tokenExists);
+
+    // Create a new token document
+    const newToken = new Token({ tokenValue, bank: bank._id });
+    await newToken.save();
+    
+    res.send({ message: "Token generated", token: newToken });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send();
+  }
+});
+
+
+
+
+
 
 router.get("/user", authentification, async (req, res) => {
   try {
@@ -167,13 +233,13 @@ router.post("/user/register", async (req, res) => {
 
     if(req.body.token){
       // Check if token exists in the TOKEN database and it's not used
-      const token = await Token.findOne({ tokenValue: req.body.token, used: false });
-      console.log(req.body.token)
+      console.log(req.body.bank)
+      const token = await Token.findOne({ tokenValue: req.body.token, used: false, bank: req.body.bank });
+      console.log(token)
 
       if(token){
         // If token exists and is not used, mark it as used
-        token.used = true;
-        await token.save();
+        
 
         // Remove the 'token' field from the request body before creating a user
         delete req.body.token;
@@ -185,9 +251,12 @@ router.post("/user/register", async (req, res) => {
         // Add the user to Admins
         const adminUser = new Admin({
           adminUser: user._id, // assuming user._id as the id of the user
-          // add other required fields
         });
+        console.log(adminUser)
         await adminUser.save();
+
+        token.used = true;
+        await token.save();
 
         res.status(200).json(user);
       } else {

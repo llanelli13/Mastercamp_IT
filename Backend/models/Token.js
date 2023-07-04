@@ -13,6 +13,10 @@ const tokenSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    bank: {
+        type: Schema.Types.ObjectId,
+        ref: 'Bank'
     }
     
 });

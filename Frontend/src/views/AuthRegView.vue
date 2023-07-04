@@ -111,7 +111,7 @@
                 class="block w-full rounded-lg py-3 px-10 border border-gray-300"
             >
               <option value="">Select Bank</option>
-              <option v-for="b in bankValue " v-bind:key="b" :value="b">{{ b.name }}</option>
+              <option v-for="b in bankValue " v-bind:key="b" :value="b._id">{{ b.name }}</option>
 
             </select>
 
@@ -125,7 +125,7 @@
 
             <div class="relative flex items-center mt-2">
 
-              <input type="text" placeholder="Enter your token" class="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+              <input v-model="token" type="text" placeholder="Enter your token" class="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 rtl:pr-5 rtl:pl-11 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
             </div>
             <div class="absolute flex items-center justify-between">
               <div @click="brockerChecked = false" class="text-xs text-gray-600 hover:underline dark:text-gray-400">Not a brocker ? </div>
@@ -231,7 +231,8 @@ export default {
         birthday: this.birthDate,
         gender: this.gender,
         password: this.pwd,
-        bank: this.bank.name,
+        bank: this.bank,
+        token: this.token
       };
 
       console.log(user);

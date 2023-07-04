@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config();
 const bankAccShema = new Schema({
     id: {
-      type: Number,
+      type: String,
       required: true  
     },
     pwd: {

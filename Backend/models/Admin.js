@@ -10,6 +10,10 @@ const adminSchema = new Schema({
     },
     agenceAdress: {
         type: String
+    },
+    blocked: {
+        type: Boolean,
+        default: false
     }
 });
 
