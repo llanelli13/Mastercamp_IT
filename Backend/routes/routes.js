@@ -459,7 +459,7 @@ router.get('/loan', authentification, async (req, res) => {
       return res.status(403).json({ error: 'User is not an admin' });
     }
 
-    const loans = await Loan.find();
+    const loans = await Loan.find({broker: req.user._id});
 
     const loansWithUserDetails = await Promise.all(
       loans.map(async (loan) => {
