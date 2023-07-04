@@ -8,7 +8,7 @@
 
 
         <div
-            class="w-full p-6 md:flex md:items-center bg-white  rounded-lg   md:p-0 lg:px-12 md:justify-evenly">
+            class="w-full p-6 md:flex md:items-center bg-white  rounded-lg md:p-0 lg:px-12 md:justify-evenly">
           <FilePond
               v-if="!this.$parent.$parent.userinfo.pp"
               class="aspect-ratio-1/1 w-40 h-40 md:w-60 md:h-60 lg:w-80 lg:h-80"
@@ -112,9 +112,10 @@
       </main>
 
     </div>
-    <div class="flex flex-col w-full mx-auto mx-10 mt-8">
-      <div class="w-full -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <h1 class="text-3xl bold px-8 mt-4 mb-8">Demande de prêts :</h1>
+    <div class="flex flex-col mx-40 mt-8">
+      <h1 class="text-3xl bold px-8 mt-4 mb-8">Demande de prêts : </h1>
+      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 
           <div class="overflow-hidden border border-gray-200  md:rounded-lg">
