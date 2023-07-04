@@ -6,6 +6,9 @@ const crypto = require('crypto');
 const User = require("../models/User.js");
 const Document = require("../models/Document.js");
 const Bank = require("../models/Bank.js");
+const Token = require("../models/Token.js");
+const BankAcc = require("../models/BankAcc.js");
+
 
 const Loan = require("../models/Loan.js");
 const Messages = require("../models/Messages.js");
@@ -59,6 +62,28 @@ router.post("/user/logout", authentification, async (req, res) => {
     res.status(500).send();
   }
 });
+
+
+router.post("/bank/connect", async (req, res) => {
+  try {
+  
+    const acc = await BankAcc.findOne({ id: req.body.id });
+    if (!acc) {
+      res.status(401).json({ message: "Invalid id" });
+    }
+
+    
+    if (acc.pwd != req.body.pwd) {
+      res.status(401).json({ message: "Invalid password" });
+    }
+
+    res.send({id: acc._id, bank: acc.bank});
+
+  } catch (error) {
+    res.status(400).send();
+  }
+});
+
 
 router.post("/user/logout/all", authentification, async (req, res) => {
   try {
@@ -133,19 +158,50 @@ router.get("/user/getAdmins", authentification, async (req, res) => {
 
 
 router.post("/user/register", async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
 
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = hashedPassword;
 
-    const user = new User(req.body);
-    await user.save();
+    if(req.body.token){
+      // Check if token exists in the TOKEN database and it's not used
+      const token = await Token.findOne({ tokenValue: req.body.token, used: false });
+      console.log(req.body.token)
 
-    res.status(200).json(user);
+      if(token){
+        // If token exists and is not used, mark it as used
+        token.used = true;
+        await token.save();
+
+        // Remove the 'token' field from the request body before creating a user
+        delete req.body.token;
+
+        // Create a new user
+        const user = new User(req.body);
+        await user.save();
+
+        // Add the user to Admins
+        const adminUser = new Admin({
+          adminUser: user._id, // assuming user._id as the id of the user
+          // add other required fields
+        });
+        await adminUser.save();
+
+        res.status(200).json(user);
+      } else {
+        // If token is not found or already used, send an error response
+        res.status(400).json({ message: "Invalid or expired token" });
+      }
+    } else {
+      // If there is no token in the request body, just create a new user
+      const user = new User(req.body);
+      await user.save();
+
+      res.status(200).json(user);
+    }
   } catch (error) {
-    
     if (error.code === 11000) {
       res.status(400).json({ message: "This email is already registered" });
     } else {
@@ -301,8 +357,8 @@ router.get('/loan/:id', authentification, async (req, res) => {
     }
 
     let idRevenus = 0;
-    if (await Document.exists({ loanId: loan._id, documentName: 'revenue' })) {
-      const idRevenusDocument = await Document.findOne({ loanId: loan._id, documentName: 'revenue' });
+    if (await Document.exists({ loanId: loan._id, documentName: 'revenus' })) {
+      const idRevenusDocument = await Document.findOne({ loanId: loan._id, documentName: 'revenus' });
       if(idRevenusDocument && idRevenusDocument.validation){
         idRevenus = 2;
       } else {
@@ -415,8 +471,8 @@ router.get('/myloan', authentification, async (req, res) => {
         }
 
         let idRevenus = 0;
-        if (await Document.exists({ loanId: loan._id, documentName: 'revenue' })) {
-          const idRevenusDocument = await Document.findOne({ loanId: loan._id, documentName: 'revenue' });
+        if (await Document.exists({ loanId: loan._id, documentName: 'revenus' })) {
+          const idRevenusDocument = await Document.findOne({ loanId: loan._id, documentName: 'revenus' });
           if(idRevenusDocument && idRevenusDocument.validation){
             idRevenus = 2;
           } else {
@@ -578,6 +634,27 @@ router.post('/fileStatus/', authentification, async (req, res) => {
     res.status(500).json({ error: 'Failed to update file' });
   }
 });
+
+router.post('/fileVerification/', authentification, async (req, res) => {
+  try {
+    const { ID, verification, type } = req.body;  // Get ID, verification status, and document type from request body
+
+    const document = await Document.findOneAndUpdate({ loanId: ID, documentName: type }, { validation: verification }, { new: true });
+
+    if (!document) {
+      return res.status(404).json({ error: 'Document not found' });
+    }
+
+    return res.status(200).json(document);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update file verification' });
+  }
+});
+
+
+
 
 
 // --------------- [ Messagerie ] -----------------

@@ -9,8 +9,7 @@ const adminSchema = new Schema({
         required: true
     },
     agenceAdress: {
-        type: String,
-        required: true
+        type: String
     }
 });
 

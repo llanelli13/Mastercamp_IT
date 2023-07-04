@@ -203,7 +203,7 @@
       <div class="w-4/5 h-1/2 sm:w-2/5 sm:h-4/5 mx-auto">
         <div v-if="!isSmallScreen || opened" class="h-2/3">
           <label for="Description" class="block text-sm text-black mb-2">Information about the document to communicate</label>
-          <textarea placeholder="Ex: Pay for my studies..."
+          <textarea placeholder=""
                     class="block w-full h-4/6 placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
           </textarea>
         </div>
@@ -215,7 +215,8 @@
           <div class="flex flex-col w-full">
             <input
                 className="px-6 w-auto sm:w-auto mb-4 py-2 h-1/2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-green-500 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
-                type="submit"
+                type="button"
+                @click="toggleFileVerification(this.getType(),this.$route.params.id,true)"
                 value="Validate file"
             />
             <input
@@ -238,6 +239,7 @@
 
 </template>
 <script>
+const axios = require('axios')
 import VuePdfEmbed from 'vue-pdf-embed'
 export default {
   name: 'DocumentValidation',
@@ -254,7 +256,37 @@ export default {
       documentToShow: null,
     };
   },
-  methods: {},
+  methods: {
+
+    getType(){
+      if(this.selected == 1){
+        return 'id'
+      }
+      if(this.selected == 2){
+        return 'compte'
+      }
+      if(this.selected == 3){
+        return 'revenus'
+      }
+
+    },
+
+    async toggleFileVerification(type, ID, verification) {
+      try {
+        let token = localStorage.getItem("token")
+        const response = await axios.post('http://localhost:3000/api/fileVerification/', {
+          ID : ID,
+          type: type,
+          verification: verification
+        },{headers: {Authorization: 'Bearer ' + token }});
+
+        console.log(response.data);
+      } catch (error) {
+        console.error(error.response.data);
+      }
+    }
+
+  },
   async created() {
     if(!this.$route.params.id){
       this.$router.push("/")

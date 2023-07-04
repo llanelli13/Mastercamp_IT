@@ -81,7 +81,7 @@ export default {
               pdfSource.id = response.data;
             })
             .catch(error => {
-              console.log('TKT ' + error);
+              console.log(error);
               pdfSource.id = 'none';
             }),
 
@@ -90,7 +90,7 @@ export default {
               pdfSource.compte = response.data;
             })
             .catch(error => {
-              console.log('TKT ' + error);
+              console.log(error);
               pdfSource.compte = 'none';
             }),
 
@@ -99,7 +99,7 @@ export default {
               pdfSource.revenus = response.data;
             })
             .catch(error => {
-              console.log('TKT ' + error);
+              console.log(error);
               pdfSource.revenus = 'none';
             })
       ];

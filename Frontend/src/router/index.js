@@ -8,6 +8,7 @@ import DocumentValidation from '../views/DocumentValidation.vue'
 import LoanApplication from "@/views/LoanApplication.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
 import MessageView from "@/views/MessageView.vue";
+import BrokerManagement from "@/views/BrokerManagement.vue";
 
 
 const routes = [
@@ -56,7 +57,13 @@ const routes = [
         path: '/messages/:id',
         name : 'MessageView',
         component: MessageView
-    }
+    },
+    {
+        path: '/brokerManagement',
+        name : 'BrokerManagement',
+        component: BrokerManagement
+    },
+
 ]
 
 const router = createRouter({
