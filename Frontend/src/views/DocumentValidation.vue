@@ -1,6 +1,6 @@
 <template>
-  <div v-if="showModal" class="absolute w-screen h-screen bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-lg z-50 flex items-center justify-center">
-    <div class="relative w-full sm:w-2/5 mx-auto h-4/5 aspect-auto overflow-auto border z-60 bg-white">
+  <div v-if="showModal"  @click="showModal = false" class="absolute w-screen h-screen bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-lg z-50 flex items-center justify-center">
+    <div @click.stop class="relative w-full sm:w-2/5 mx-auto h-4/5 aspect-auto overflow-auto border z-60 bg-white">
       <vue-pdf-embed :source="this.documentToShow" />
       <button @click="showModal = false" class="fixed top-2 right-2 w-12 h-12 p-1">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
