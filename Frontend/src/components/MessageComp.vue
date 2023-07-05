@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full  max-w-2xl px-8 py-4 mt-16 bg-white rounded-lg shadow-lg " :class = "{'place-self-end' : side, 'place-self-start ' : !side}">
+  <div class="w-full  max-w-2xl px-8 py-4 bg-white rounded-lg shadow-lg " :class = "{'place-self-end' : side, 'place-self-start ' : !side}">
     <div class="flex -mt-16 " :class = "{'justify-end' : side ,'justify-start' : !side}">
       <img class="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" :src="msg.senderId.pp">
     </div>
@@ -25,7 +25,7 @@ export default {
 
 
 
-  
+
   },
 
   data(){
