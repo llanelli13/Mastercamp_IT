@@ -1,5 +1,6 @@
 <template>
-  <section class="container px-4 my-20 mx-2 sm:mx-auto">
+  <p></p>
+  <section v-if="con" class="container px-4 my-20 mx-2 sm:mx-auto">
     <div class="flex flex-col">
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <h1 class="text-3xl bold px-8 mt-4 mb-8">Panneau d'administration :</h1>
@@ -143,8 +144,29 @@ export default {
         filterWai: true,
         filterAcc: true,
         filtered: [],
-        loading: true
+        loading: true,
+        con: false
     }
+  },
+
+  beforeCreate(){
+    let token = localStorage.getItem('token')
+    axios.get('http://localhost:3000/api/user/isAdmin', {headers: {Authorization: 'Bearer ' + token }})
+      .then(res => {
+        if(!res.data){
+          this.con = false
+
+          this.$router.push('/')
+          return
+        }
+        this.con = true
+        console.log("connected")
+       })
+        .catch(() => {
+          this.con = false
+
+          this.$router.push('/')
+        })
   },
 
 

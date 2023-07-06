@@ -1,5 +1,6 @@
 <template>
-  <div
+  <p></p>
+  <div v-if="con"
       className="w-full h-full bg-gradient-to-r from-white to-gray-300 flex items-center justify-center"
   >
     <div
@@ -95,6 +96,7 @@ export default {
       amount: null,
       time: null,
       purpose: '',
+      con: false,
       broker: null,  // broker field added here
     };
   },
@@ -111,6 +113,21 @@ export default {
       return this.amount && this.time ? this.amount / this.time : '';
     },
   },
+
+  beforeCreate(){
+    let token = localStorage.getItem('token')
+    axios.get('http://localhost:3000/api/user/', {headers: {Authorization: 'Bearer ' + token }})
+      .then(() => {
+        this.con = true
+        console.log("connected")
+       })
+        .catch(() => {
+          this.con = false
+
+          this.$router.push('/')
+        })
+  },
+
   created() {
     const token = localStorage.getItem("token")
     axios.get('http://localhost:3000/api/user/getAdmins', {headers: {Authorization: 'Bearer ' + token }})

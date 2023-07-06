@@ -1,5 +1,6 @@
 <template>
-  <section class="bg-gradient-to-r from-white to-gray-300 w-auto min-h-screen pt-24 ">
+<p></p>
+  <section v-if="con" class="bg-gradient-to-r from-white to-gray-300 w-auto min-h-screen pt-24 ">
     <div
         class="container item-center justify-center px-4 sm:px-20 lg:px-60 mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow ">
       <!--Header-->
@@ -171,8 +172,23 @@ export default {
           validation : []
         },
       document : [],
+      con: false
 
     }
+  },
+
+  beforeCreate(){
+    let token = localStorage.getItem('token')
+    axios.get('http://localhost:3000/api/user/', {headers: {Authorization: 'Bearer ' + token }})
+      .then(() => {
+        this.con = true
+        console.log("connected")
+       })
+        .catch(() => {
+          this.con = false
+
+          this.$router.push('/')
+        })
   },
 
  

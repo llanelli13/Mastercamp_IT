@@ -1,5 +1,6 @@
 <template>
-  <section class="bg-gradient-to-r from-white to-gray-300 pb-10" style="margin-top: -15px;">
+  <p></p>
+  <section v-if="this.con" class="bg-gradient-to-r from-white to-gray-300 pb-10" style="margin-top: -15px;">
     <div class="max-w-6xl px-6 py-10 mt-20 mx-auto">
 
       <main class="relative z-20 w-full mt-8 md:flex md:items-center xl:mt-12">
@@ -264,10 +265,26 @@ export default {
       token: '',
       loans: [],
       hover : false,
-      loading: true
+      loading: true,
+      con: false
 
     }
   },
+
+  beforeCreate(){
+    let token = localStorage.getItem('token')
+    axios.get('http://localhost:3000/api/user/', {headers: {Authorization: 'Bearer ' + token }})
+      .then(() => {
+        this.con = true
+        console.log("connected")
+       })
+        .catch(() => {
+          this.con = false
+
+          this.$router.push('/')
+        })
+  },
+
   created(){
     this.userinfo = this.$parent.$parent.userinfo
     console.log(this.userinfo)

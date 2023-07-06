@@ -127,8 +127,10 @@
         coutEmprunt: '',
         anneesEmprunt: '',
         showModal: false,
+        con: false
       };
     },
+    
     methods: {
       resetEmpruntTableau() {
         this.montantEmprunt = '';

@@ -50,6 +50,8 @@ router.post("/user/login", async (req, res) => {
   }
 });
 
+
+
 router.post("/user/logout", authentification, async (req, res) => {
   try {
     req.user.authTokens = req.user.authTokens.filter((authToken) => {
@@ -106,15 +108,7 @@ router.post("/bank/connect", async (req, res) => {
 });
 
 
-router.post("/user/logout/all", authentification, async (req, res) => {
-  try {
-    req.user.authTokens = [];
-    await req.user.save();
-    res.send();
-  } catch (err) {
-    res.status(500).send();
-  }
-});
+
 
 router.post("/token/generate", async (req, res) => {
   try {
@@ -223,13 +217,7 @@ router.get("/user/getAdmins", authentification, async (req, res) => {
 });
 
 
-router.post("/admin/toggle", async (req, res) => {
-  try {
-      
-  } catch (error) {
 
-  }
-});
 
 
 router.post("/user/register", async (req, res) => {

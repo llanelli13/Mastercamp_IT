@@ -1,5 +1,7 @@
 <template>
+  <p></p>
   <div
+    v-if="con"
       className="flex-1 p:2 sm:py-6 justify-between flex flex-col h-screen block"
       style="margin-top: 35px; height: calc(100vh - 35px)"
   >
@@ -86,7 +88,22 @@ export default {
     return {
       messages: [],
       loanInfo: "",
+      con: false
     };
+  },
+
+  beforeCreate(){
+    let token = localStorage.getItem('token')
+    axios.get('http://localhost:3000/api/user/', {headers: {Authorization: 'Bearer ' + token }})
+      .then(() => {
+        this.con = true
+        console.log("connected")
+       })
+        .catch(() => {
+          this.con = false
+
+          this.$router.push('/')
+        })
   },
 
   created() {

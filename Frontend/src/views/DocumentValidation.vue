@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showModal"  @click="showModal = false" class="absolute w-screen h-screen bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-lg z-50 flex items-center justify-center">
+  <div v-if="showModal && con"  @click="showModal = false" class="absolute w-screen h-screen bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-lg z-50 flex items-center justify-center">
     <div @click.stop class="relative w-full sm:w-2/5 mx-auto h-4/5 aspect-auto overflow-auto border z-60 bg-white">
       <vue-pdf-embed :source="this.documentToShow.link" />
       <button @click="showModal = false" class="fixed top-2 right-2 w-12 h-12 p-1">
@@ -11,7 +11,7 @@
   </div>
 
 
-  <div class="mt-20 w-2/3 mx-auto h-5/6">
+  <div v-if="con" class="mt-20 w-2/3 mx-auto h-5/6">
     <div>
       <ol class="grid grid-cols-1 divide-x divide-gray-100 overflow-hidden rounded-lg border border-gray-100 text-sm  sm:grid-cols-3">
         <li v-if="this.pdfSource.id === 'none'"  class="flex items-center justify-center cursor-not-allowed bg-gray-300 gap-2 p-4"  >
@@ -259,7 +259,28 @@ export default {
       showModal: false,
       documentToShow: null,
       documentStatus : null,
+      con: false
     };
+  },
+  
+  beforeCreate(){
+    let token = localStorage.getItem('token')
+    axios.get('http://localhost:3000/api/user/isAdmin', {headers: {Authorization: 'Bearer ' + token }})
+      .then(res => {
+        if(!res.data){
+          this.con = false
+
+          this.$router.push('/')
+          return
+        }
+        this.con = true
+        console.log("connected")
+       })
+        .catch(() => {
+          this.con = false
+
+          this.$router.push('/')
+        })
   },
   methods: {
 
@@ -275,6 +296,8 @@ export default {
       }
 
     },
+
+    
 
     handleClick() {
       if (this.documentToShow.validation) {
