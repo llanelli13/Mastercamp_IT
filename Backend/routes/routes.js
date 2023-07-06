@@ -91,11 +91,14 @@ router.post("/bank/connect", async (req, res) => {
     for(let user of users) {
       const admin = await Admin.findOne({ adminUser: user._id });
       if(admin) {
+        user = user.toObject();
+        user.blocked = admin.blocked;
         admins.push(user);
+
       }
     }
 
-    res.send({id: acc._id, bank: acc.bank, brokers: admins});
+    res.send({id: acc._id, bank: acc.bank, brokers: admins, name: req.body.id});
 
   } catch (error) {
     res.status(400).send();
@@ -198,7 +201,7 @@ router.get("/user/isadmin", authentification, async (req, res) => {
 router.get("/user/getAdmins", authentification, async (req, res) => {
   try {
     // Query for all Admins
-    const admins = await Admin.find();
+    const admins = await Admin.find({ blocked: { $ne: true } });
 
     // Fetch each User document
     const adminsWithUsers = await Promise.all(admins.map(async (admin) => {
@@ -287,6 +290,32 @@ router.post("/user/register", async (req, res) => {
     }
   }
 });
+
+router.put('/admin/block/:id', async (req, res) => {
+  try {
+      const { blocked } = req.body;  // get the boolean value from request body
+      const { id } = req.params;  // get the admin id from request params
+
+      // Check if blocked value is boolean
+      if (typeof blocked !== 'boolean') {
+          return res.status(400).send({ message: 'Blocked value must be a boolean.' });
+      }
+
+      // Update the admin
+      const admin = await Admin.findOneAndUpdate({ adminUser: id }, { blocked }, { new: true });
+
+      if (!admin) {
+          return res.status(404).send({ message: 'No admin found for this id.' });
+      }
+
+      // Send back the updated admin
+      res.send(admin);
+
+  } catch (error) {
+      res.status(500).send({ message: 'Server error.' });
+  }
+});
+
 
 
 

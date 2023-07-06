@@ -2,10 +2,10 @@
 
 <div v-if="!connected" class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 mt-40 bg-gray-100 rounded">
   <div class="mx-auto max-w-lg text-center">
-    <h1 class="text-2xl font-bold sm:text-3xl">Bank Interface</h1>
+    <h1 class="text-2xl font-bold sm:text-3xl">Interface Banque</h1>
 
     <p class="mt-4 text-gray-500">
-      Broker Management
+      Gestion des Courtiers
     </p>
   </div>
 
@@ -18,7 +18,7 @@
           type="id"
           v-model="id"
           class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-          placeholder="Enter id"
+          placeholder="Identifiant"
         />
 
         
@@ -26,14 +26,14 @@
     </div>
 
     <div>
-      <label for="password" class="sr-only">Password</label>
+      <label for="password" class="sr-only">Mot de passe</label>
 
       <div class="relative">
         <input
           type="password"
           v-model="pwd"
           class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-          placeholder="Enter password"
+          placeholder="Mot de passe"
         />
 
         <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -69,22 +69,22 @@
         @click="this.connect()"
         class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
       >
-        Connect
+        Se connecter
       </button>
     </div>
   </form>
 </div>
 
 <section v-else class="mt-40 container px-4 mx-auto">
-    <h1 class="text-3xl mb-12">Broker Management</h1>
+    <h1 class="text-3xl mb-12">Gestion des courtiers</h1>
     <div class="flex justify-between">
         <div class="flex items-center gap-x-3">
-            <h2 class="text-lg font-medium text-gray-800 dark:text-white"> Members</h2>
+            <h2 class="text-lg font-medium text-gray-800 dark:text-white"> Membres:</h2>
 
-            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{ this.connected.brokers.length }} Brokers</span>
+            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{ this.connected.brokers.length }} Courtier</span>
 
         </div>
-        <button class="border rounded px-4 py-2 bg-orange-300">Create a new BROKER-TOKEN</button>
+        <button @click="creation = true" class="border rounded px-4 py-2 bg-orange-300">Créer une Clé d'activation</button>
     </div>
 
     <div class="flex flex-col mt-6">
@@ -145,20 +145,29 @@
                                     </div>
                                 </td>
                                 <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                    <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                  <div v-if="!b.blocked" class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
                                         <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
 
-                                        <h2 class="text-sm font-normal text-emerald-500">Active</h2>
+                                        <h2 class="text-sm font-normal text-emerald-500">Actif</h2>
+                                        
+                                    </div>
+                                    <div v-else class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-red-100/60 dark:bg-gray-800">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-red-500"></span>
+
+                                        <h2 class="text-sm font-normal text-red-500">Bloqué</h2>
+                                        
                                     </div>
                                 </td>
-                                <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Broker</td>
+                                <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Courtier</td>
                                 <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{ b.email }}</td>  
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                     <div class="flex items-center gap-x-6">
-                                        <button class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <button @click="this.switch(b._id, !b.blocked)" class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
+                                            <svg v-if="!b.blocked" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                             </svg>
+                                            <svg class="w-5 h-5" v-else viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.1" d="M3 12C3 4.5885 4.5885 3 12 3C19.4115 3 21 4.5885 21 12C21 19.4115 19.4115 21 12 21C4.5885 21 3 19.4115 3 12Z" fill="#323232"></path> <path d="M3 12C3 4.5885 4.5885 3 12 3C19.4115 3 21 4.5885 21 12C21 19.4115 19.4115 21 12 21C4.5885 21 3 19.4115 3 12Z" stroke="#323232" stroke-width="2"></path> <path d="M9 12L10.6828 13.6828V13.6828C10.858 13.858 11.142 13.858 11.3172 13.6828V13.6828L15 10" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+
                                         </button>
 
                                        
@@ -197,6 +206,33 @@
             </svg>
         </a>
     </div>
+
+    <div v-if="creation" class="fixed w-full h-full bg-gray-100 top-0 left-0 flex flex-col justify-center item-center">
+      <div class="w-full flex justify-around">
+        <div class="bg-white dark:bg-gray-900">
+          <div class="max-w-3xl px-6 py-16 mx-auto text-center">
+              <h1 class="text-3xl font-semibold text-gray-800 dark:text-gray-100">Creation de Token</h1>
+              <p v-if="!token" class="max-w-md mx-auto mt-5 text-gray-500 dark:text-gray-400">Mot de passe pour <strong>{{ connected.name }}</strong></p>
+              <p v-else class="max-w-md mx-auto mt-5 text-gray-500 dark:text-gray-400">Clé d'activation pour <strong>{{ connected.name }}</strong></p>
+
+              <div class="flex flex-col mt-8 space-y-3 sm:space-y-0 sm:flex-row sm:justify-center sm:-mx-2" v-if="!token">
+                  <input v-model="pwd2" id="pwd" type="password" class="px-4 py-2 text-gray-700 bg-white border rounded-md sm:mx-2 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Mot de Passe">
+
+                  <button @click="getToken()" class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-700 rounded-md sm:mx-2 hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                      Obtenir une clé
+                  </button>
+              </div>
+              <div v-else>
+                <h2 class="align-center">{{this.token}}</h2>
+
+                <button @click="token = ''; creation=false" class="mt-4 bg-red-400 rounded px-6 py-1">
+                  Retour
+                </button>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
 </section>
   
   </template>
@@ -216,7 +252,11 @@
   
     data () {
       return {
-        connected: ''
+        creation: false,
+        connected: '',
+        token: '',
+        id: '',
+        pwd: ''
       }
     },
 
@@ -225,8 +265,10 @@
       
   
         connect(){
+            
             axios.post(`http://localhost:3000/api/bank/connect`, {id: this.id, pwd: this.pwd})
                 .then(response => {
+                    
                     this.connected = response.data;
 
                 })
@@ -234,7 +276,38 @@
                     console.log(error);
                 })
                   
+        },
+
+        getToken(){
+
+          axios.post(`http://localhost:3000/api/token/generate`, {id: this.connected.name, pwd: this.pwd2})
+                .then(response => {
+                    this.token = response.data.token.tokenValue;
+                    this.connect()
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+                  
+        
+        },
+
+        switch(id, b){
+            let block = !b
+            console.log(block)
+            axios.put(`http://localhost:3000/api/admin/block/` + id, {blocked: b})
+                .then(() => {
+                    this.connect()
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+                  
+        
+          
         }
+
+        
   
       },
   }
@@ -243,6 +316,13 @@
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
   
+  * {
+    -webkit-user-select:text; /* pour les navigateurs basés sur WebKit */
+  -moz-user-select: text; /* pour les navigateurs basés sur Gecko */
+  -ms-user-select: text; /* pour les navigateurs basés sur Trident */
+  user-select: text;
+  }
+
   </style>
   
   

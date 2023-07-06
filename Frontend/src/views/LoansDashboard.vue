@@ -111,7 +111,6 @@
                 <div  class="mt-4 mb-4 h-12 w-12 lds-ring"><div></div><div></div><div></div><div></div></div>
 
               </div>
-            
           </div>
         </div>
       </div>
