@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gradient-to-r from-white to-gray-300" style="margin-top: -15px;">
+  <section class="bg-gradient-to-r from-white to-gray-300 pb-10" style="margin-top: -15px;">
     <div class="max-w-6xl px-6 py-10 mt-20 mx-auto">
 
       <main class="relative z-20 w-full mt-8 md:flex md:items-center xl:mt-12">
@@ -47,7 +47,7 @@
           </div>
 
 
-          <div class="mt-2 md:mx-6 flex items-center">
+          <div class="my-2 md:mx-6 flex items-center">
             <div class="h-2/5 mr-10 py-4">
               <div class="h-1/3 m-2">
                 <label for="username" class="block text-xs  sm:text-sm text-black">Nom</label>
@@ -151,10 +151,6 @@
                 </th>
                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                   Actions
-                </th>
-
-                <th scope="col" class="relative py-3.5 px-4">
-                  <span class="sr-only">Actions</span>
                 </th>
               </tr>
 

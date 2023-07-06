@@ -1,6 +1,6 @@
 <template>
   <div
-      className="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen block"
+      className="flex-1 p:2 sm:py-6 justify-between flex flex-col h-screen block"
       style="margin-top: 35px; height: calc(100vh - 35px)"
   >
     <div
@@ -33,7 +33,8 @@
     </div>
     <div
         id="messages"
-        className="flex flex-col bg-gradient-to-r from-white to-gray-300 space-y-14 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+        style="min-height:71vh;"
+        className="flex flex-col bg-gradient-to-r pt-20  from-white to-gray-300 space-y-14 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
     >
 
       <MessageComp v-for="item in messages" :key="item" :msg="item"/>
